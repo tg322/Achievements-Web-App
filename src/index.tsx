@@ -5,14 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HousesBarCharts from './pages/HousesBarCharts';
+import HousesBarChartsHorizontal from './pages/HousesBarChartsHorizontal';
 
 const Content = () => {
 
   return(
     <BrowserRouter>
       <Routes>
-        <Route path="/house-totals" element={<HousesBarCharts/>}/>
-        <Route path="/" element={<App />}/>
+        <Route path="/houseTotals" element={<HousesBarCharts/>}/>
+        <Route path="/houseTotalsHorizontal" element={<HousesBarChartsHorizontal/>}/>
+        <Route path="/" element={<HousesBarChartsHorizontal/>}/>
       </Routes>
     </BrowserRouter>
   );

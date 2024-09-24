@@ -31,7 +31,7 @@ function HousesBarCharts(){
         } else if (maxTotal >= 100 && maxTotal < 1000) {
             maxRounded = Math.ceil(maxTotal / 10) * 10;
             if (maxRounded - maxTotal < 50) {
-                maxRounded = Math.ceil((maxTotal + 120) / 10) * 10;
+                maxRounded = Math.ceil((maxTotal + 60) / 10) * 10;
             }
         } else if (maxTotal >= 1000) {
             maxRounded = Math.ceil(maxTotal / 100) * 100;
@@ -68,14 +68,19 @@ function HousesBarCharts(){
 
 
     return(
-        <div style={{display:'flex', width:'100%', height:'100vh', padding:'40px', boxSizing:'border-box', flexDirection:'column', backgroundImage:`url(${bg})`, position:'relative', backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'bottom'}}>
+        <div style={{display:'flex', width:'100%', height:'100vh', padding:'40px 40px 40px 0px', boxSizing:'border-box', flexDirection:'column', backgroundImage:`url(${bg})`, position:'relative', backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'bottom'}}>
+            
             <div style={{display:'flex', position:'absolute', width:'100%', height:'100%', backdropFilter:'blur(8px)', zIndex:'1', top:'0', left:'0'}}></div>
             <div style={{display:'flex', position:'absolute', width:'100%', height:'100%', backgroundColor:'black', opacity:'0.4', zIndex:'1', top:'0', left:'0'}}></div>
-            <div style={{display:'flex', flexDirection:'row', height:'100%', gap:'5%', alignItems:'flex-end', zIndex:'4'}}>
+            <div style={{display:'flex', width:'100%', zIndex:'4', justifyContent:'center'}}>
+                <h1 style={{color:'white', fontSize:'50px', fontFamily: '"Courgette", cursive'}}>Celebrating Achievement</h1>
+            </div>
+            
+            <div style={{display:'flex', flexDirection:'column', height:'100%', gap:'4%', alignItems:'flex-start', zIndex:'4', justifyContent:'center'}}>
                 {houses && maxRounded && houses.map((singleHouse, key) => {
                     let heightPercentage = singleHouse.houseTotal / maxRounded * 100;
                     return(
-                        <Bar key={key} house={singleHouse} heightPercentage={heightPercentage} pos={key} direction='vertical'/>
+                        <Bar key={key} house={singleHouse} heightPercentage={heightPercentage} pos={key} direction='horizontal'/>
                     )})
                 }
             </div>

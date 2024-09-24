@@ -6,6 +6,7 @@ export interface IHouseProps{
     studentYear: number;
     housePlaceAsc: number;
     housePlaceDesc:number;
+    houseSaintPhoto: string | null;
 }
 
 export class House implements IHouseProps{
@@ -16,6 +17,7 @@ export class House implements IHouseProps{
         public houseTotal: number,
         public studentYear: number,
         public housePlaceAsc: number,
-        public housePlaceDesc:number
+        public housePlaceDesc:number,
+        public houseSaintPhoto: string | null
     ) { }
   }

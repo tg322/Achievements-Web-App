@@ -1,13 +1,20 @@
 
-.bar{
-    display:flex;
-    flex-direction:column;
-    width:100%;
-}
 /* .animateBar{
     transition: max-height 1.5s ease-in-out;
     max-height:100%;
     
 } */
 
-
+@keyframes barGrow {
+    from {
+      max-width: 530px;
+    }
+    to {
+      max-width: 100%;
+    }
+}
+  
+#bar-container {
+    animation: barGrow 2s ease-in-out;
+    animation-delay: 5s; /* delay here if needed */
+}
