@@ -27,7 +27,7 @@
   max-width: 180px;
   animation: 
   barGrow 2s ease-in-out forwards 30s,
-  barShrink 2s ease-in-out forwards 45s;
+  barShrink 2s ease-in-out forwards 55s;
 }
 
 /* .barGrow{

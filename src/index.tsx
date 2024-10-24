@@ -18,7 +18,6 @@ const Content = () => {
         {/* <Route path="/" element={<HousesBarChartsHorizontal/>}/> */}
         <Route path="/vertical/barchart" element={<BarChart/>}/>
         <Route path="/horizontal/barchart" element={<BarChart/>}/>
-        <Route path="/horizontal/barchart2" element={<BarChart/>}/>
       </Routes>
     </BrowserRouter>
   );
