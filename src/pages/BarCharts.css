@@ -7,14 +7,33 @@
 
 @keyframes barGrow {
     from {
-      max-width: 530px;
+      max-width: 180px;
     }
     to {
       max-width: 100%;
     }
 }
-  
-#bar-container {
-    animation: barGrow 2s ease-in-out;
-    animation-delay: 5s; /* delay here if needed */
+
+@keyframes barShrink {
+  from {
+    max-width: 100%;
+  }
+  to {
+    max-width: 180px;
+  }
 }
+  
+#bar-wrapper {
+  max-width: 180px;
+  animation: 
+  barGrow 2s ease-in-out forwards 30s,
+  barShrink 2s ease-in-out forwards 45s;
+}
+
+/* .barGrow{
+  animation: barGrow 2s ease-in-out forwards 5s;
+}
+
+.barShrink{
+  animation: barShrink 2s ease-in-out forwards 17s;
+} */

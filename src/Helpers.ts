@@ -1,4 +1,4 @@
-import { House, IHouseProps } from "./IHouseInterfaces";
+import { House, IHouseProps, IHouseSaintsProps, RGBColorProps, houseSaints } from "./IHouseInterfaces";
 import { buildResponse, BuildResponseType } from "./BuildResponse";
 import stBosco from './img/john_bosco.png';
 import stTeresa from './img/mother_teresa.png';
@@ -7,10 +7,7 @@ import stMacKillop from './img/mary_mackillop.png';
 import stNewman from './img/john_henry_newman.png';
 import stStein from './img/edith_stein.png';
 
-interface IHouseSaintsProps{
-    houseName:string;
-    saintImage:string;
-}
+
 
 export class Helper {
 
@@ -22,15 +19,9 @@ export class Helper {
     
     async buildHouses(rawData:any): Promise<BuildResponseType>{
         let housesArray:IHouseProps[] = [];
-        const houseSaints:Array<IHouseSaintsProps> = 
-            [{houseName: 'Athens', saintImage:stBosco}, 
-            {houseName: 'Lystra', saintImage:stNewman}, 
-            {houseName: 'Damascus', saintImage:stStein}, 
-            {houseName: 'Corinth', saintImage:stMacKillop},
-            {houseName: 'Valletta', saintImage:stTeresa},
-            {houseName: 'Rome', saintImage:stRomero}];
-            // const testPoints = [12900, 7000, 8600, 6300, 5000, 2000];
-
+        
+            const testPoints = [0, 50, 40, 30, 20, 10];
+                //
         for (const key of Object.keys(rawData)) {
             const singleItem = rawData[Number(key)];
             const houseSaint = houseSaints.filter((saint:IHouseSaintsProps) => saint.houseName === singleItem.house_description);
@@ -40,4 +31,31 @@ export class Helper {
         }
         return buildResponse(true, 'Houses built successfully.', housesArray);
     }
-}
+
+    hexToRgb(hex: string) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+
+        if(result){
+            return{
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+              };
+        }else{
+            throw new Error('Failed to retrieve RGB value from Hex');
+        }
+        
+      }
+
+      DarkerRGBColor(rgb:RGBColorProps, percent:number){
+        const clamp = (value: number) => Math.max(0, Math.min(255, value));
+        const factor = (100 - percent) / 100;
+        const darkenedR = clamp(Math.round(rgb.r * factor));
+        const darkenedG = clamp(Math.round(rgb.g * factor));
+        const darkenedB = clamp(Math.round(rgb.b * factor));
+
+        const darkRGB = {r: darkenedR, g:darkenedG, b:darkenedB}
+
+        return darkRGB
+      }
+    }

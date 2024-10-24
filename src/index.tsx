@@ -6,15 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HousesBarCharts from './pages/HousesBarCharts';
 import HousesBarChartsHorizontal from './pages/HousesBarChartsHorizontal';
+import BarChart from './pages/BarChart';
 
 const Content = () => {
 
   return(
     <BrowserRouter>
       <Routes>
-        <Route path="/houseTotals" element={<HousesBarCharts/>}/>
-        <Route path="/houseTotalsHorizontal" element={<HousesBarChartsHorizontal/>}/>
-        <Route path="/" element={<HousesBarChartsHorizontal/>}/>
+        {/* <Route path="/houseTotals" element={<HousesBarCharts/>}/>
+        <Route path="/houseTotalsHorizontal" element={<HousesBarChartsHorizontal/>}/> */}
+        {/* <Route path="/" element={<HousesBarChartsHorizontal/>}/> */}
+        <Route path="/vertical/barchart" element={<BarChart/>}/>
+        <Route path="/horizontal/barchart" element={<BarChart/>}/>
+        <Route path="/horizontal/barchart2" element={<BarChart/>}/>
       </Routes>
     </BrowserRouter>
   );

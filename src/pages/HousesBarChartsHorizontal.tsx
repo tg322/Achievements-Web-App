@@ -7,7 +7,7 @@ import './BarCharts.css';
 import Bar from './components/Bar';
 import bg from '../img/graph_background_image.png'
 
-function HousesBarCharts(){
+function HousesTotalsBarCharts(){
 
     const[houses, setHouses] = useState<Array<IHouseProps>>([]);
     const[maxRounded, setMaxRounded] = useState<number>(0);
@@ -22,25 +22,27 @@ function HousesBarCharts(){
 
         let maxRounded = 0;
 
-        if (maxTotal < 100) {
-            maxRounded = Math.ceil(maxTotal / 10) * 10;
-            if (maxRounded - maxTotal < 50) {
-                maxRounded = Math.ceil((maxTotal + 50) / 10) * 10;
-            }
+        maxRounded = Math.ceil(maxTotal / 10) * 10;
+
+        // if (maxTotal < 100) {
+        //     maxRounded = Math.ceil(maxTotal / 10) * 10;
+        //     if (maxRounded - maxTotal < 50) {
+        //         maxRounded = Math.ceil((maxTotal + 1) / 10) * 10;
+        //     }
             
-        } else if (maxTotal >= 100 && maxTotal < 1000) {
-            maxRounded = Math.ceil(maxTotal / 10) * 10;
-            if (maxRounded - maxTotal < 50) {
-                maxRounded = Math.ceil((maxTotal + 60) / 10) * 10;
-            }
-        } else if (maxTotal >= 1000) {
-            maxRounded = Math.ceil(maxTotal / 100) * 100;
+        // } else if (maxTotal >= 100 && maxTotal < 1000) {
+        //     maxRounded = Math.ceil(maxTotal / 10) * 10;
+        //     if (maxRounded - maxTotal < 50) {
+        //         maxRounded = Math.ceil((maxTotal + 10) / 10) * 10;
+        //     }
+        // } else if (maxTotal >= 1000) {
+        //     maxRounded = Math.ceil(maxTotal / 10) * 10;
 
             //if the max rounded value is less than 200 above the max total value, then max rounded equals max total + 500 rounded to the nearest 10
-            if (maxRounded - maxTotal < 200) {
-                maxRounded = Math.ceil((maxTotal + 500) / 10) * 10;
-            }
-        }
+            // if (maxRounded - maxTotal < 200) {
+            //     maxRounded = Math.ceil((maxTotal + 500) / 10) * 10;
+            // }
+        // }
 
         setMaxRounded(maxRounded);
     }
@@ -51,7 +53,7 @@ function HousesBarCharts(){
     },[houses]);
 
     useEffect(() => {
-        axios.get('https://spccapi.stpaulscatholiccollege.co.uk/houses')
+        axios.get('https://achievements-api.stpaulscatholiccollege.co.uk/houses')
         .then(async function (response) {
             // handle success - Store data in useStates
             const builtHouses = await helper.buildHouses(response.data);
@@ -68,23 +70,27 @@ function HousesBarCharts(){
 
 
     return(
-        <div style={{display:'flex', width:'100%', height:'100vh', padding:'40px 40px 40px 0px', boxSizing:'border-box', flexDirection:'column', backgroundImage:`url(${bg})`, position:'relative', backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'bottom'}}>
+        <div style={{display:'flex', width:'100%', height:'100vh', padding:'40px 40px 40px 0px', boxSizing:'border-box', flexDirection:'column', backgroundImage:`url(${bg})`, position:'relative', backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'bottom', justifyContent:'space-evenly'}}>
             
             <div style={{display:'flex', position:'absolute', width:'100%', height:'100%', backdropFilter:'blur(8px)', zIndex:'1', top:'0', left:'0'}}></div>
             <div style={{display:'flex', position:'absolute', width:'100%', height:'100%', backgroundColor:'black', opacity:'0.4', zIndex:'1', top:'0', left:'0'}}></div>
             <div style={{display:'flex', width:'100%', zIndex:'4', justifyContent:'center'}}>
-                <h1 style={{color:'white', fontSize:'50px', fontFamily: '"Courgette", cursive'}}>Celebrating Achievement</h1>
+                <h1 style={{color:'white', fontSize:'50px', fontFamily: '"Courgette", cursive', margin:'0px'}}>Celebrating Achievement</h1>
             </div>
             
-            <div style={{display:'flex', flexDirection:'column', height:'100%', gap:'4%', alignItems:'flex-start', zIndex:'4', justifyContent:'center'}}>
+            <div style={{display:'flex', flexDirection:'column', height:'fit-content', gap:'30px', alignItems:'flex-start', zIndex:'4', justifyContent:'center'}}>
                 {houses && maxRounded && houses.map((singleHouse, key) => {
                     let heightPercentage = singleHouse.houseTotal / maxRounded * 100;
+                    if(heightPercentage < 35){
+                        heightPercentage = 35.5;
+                    }
                     return(
-                        <Bar key={key} house={singleHouse} heightPercentage={heightPercentage} pos={key} direction='horizontal'/>
+                        // <Bar key={key} house={singleHouse} heightPercentage={heightPercentage} pos={key} direction='horizontal'/>
+                        <></>
                     )})
                 }
             </div>
         </div>
     );
 }
-export default HousesBarCharts
+export default HousesTotalsBarCharts

@@ -51,7 +51,7 @@ function HousesBarCharts(){
     },[houses]);
 
     useEffect(() => {
-        axios.get('https://spccapi.stpaulscatholiccollege.co.uk/houses')
+        axios.get('https://achievements-api.stpaulscatholiccollege.co.uk/houses')
         .then(async function (response) {
             // handle success - Store data in useStates
             const builtHouses = await helper.buildHouses(response.data);
@@ -75,7 +75,8 @@ function HousesBarCharts(){
                 {houses && maxRounded && houses.map((singleHouse, key) => {
                     let heightPercentage = singleHouse.houseTotal / maxRounded * 100;
                     return(
-                        <Bar key={key} house={singleHouse} heightPercentage={heightPercentage} pos={key} direction='vertical'/>
+                        // <Bar key={key} house={singleHouse} heightPercentage={heightPercentage} pos={key} direction='vertical'/>
+                        <></>
                     )})
                 }
             </div>
