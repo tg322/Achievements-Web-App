@@ -1,23 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HousesBarCharts from './pages/HousesBarCharts';
-import HousesBarChartsHorizontal from './pages/HousesBarChartsHorizontal';
 import BarChart from './pages/BarChart';
+import Leaderboard from './pages/Leaderboard';
+import Initialise from './Utils/Initialise';
+import { GraphProvider } from './Utils/GraphContextProvider';
 
 const Content = () => {
+
+  // const queryParameters = new URLSearchParams(window.location.search);
+  // const year = queryParameters.get("year");
+
+  // console.log(year);
 
   return(
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/houseTotals" element={<HousesBarCharts/>}/>
-        <Route path="/houseTotalsHorizontal" element={<HousesBarChartsHorizontal/>}/> */}
-        {/* <Route path="/" element={<HousesBarChartsHorizontal/>}/> */}
-        <Route path="/vertical/barchart" element={<BarChart/>}/>
+        <Route path='/vertical/'>
+          <Route path="barchart" element={<Initialise>
+            <BarChart/>
+          </Initialise>}/>
+        </Route>
+        <Route path='/horizontal/'>
+          <Route path="barchart" element={<Initialise>
+            <BarChart/>
+          </Initialise>}/>
+          <Route path='leaderboard' element={<Initialise>
+            <Leaderboard/>
+          </Initialise>}/>
+        </Route>
+        {/* <Route path="/vertical/barchart" element={<BarChart/>}/>
         <Route path="/horizontal/barchart" element={<BarChart/>}/>
+        <Route path='/leaderboard/houses'/> */}
       </Routes>
     </BrowserRouter>
   );
@@ -28,7 +44,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Content/>
+    <GraphProvider>
+      <Content/>
+    </GraphProvider>
   </React.StrictMode>
 );
 

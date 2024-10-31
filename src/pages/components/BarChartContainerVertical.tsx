@@ -138,7 +138,7 @@ function BarChartContainerVertical(){
                         heightPercentage = 35.5;
                     }
                     return(
-                        <Bar key={key} house={singleHouse} heightPercentage={heightPercentage} pos={key} direction={'vertical'} singleHouse={isSingleHouse}/>
+                        <Bar key={key} house={singleHouse} heightPercentage={heightPercentage} pos={key}/>
                     )
                 })
                 }

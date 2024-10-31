@@ -10,12 +10,13 @@ export type Direction = 'vertical' | 'horizontal';
 export interface IHouseProps{
     houseId: number;
     houseDescription: string;
-    houseColor: string;
+    houseColor: RGBColorProps;
     houseTotal: number;
     studentYear: number;
     housePlaceAsc: number;
     housePlaceDesc:number;
     houseSaintPhoto: string | null;
+    darkerHouseColor: RGBColorProps;
 }
 
 export interface RGBColorProps{
@@ -57,11 +58,12 @@ export class House implements IHouseProps{
     constructor (
         public houseId: number,
         public houseDescription: string,
-        public houseColor: string,
+        public houseColor: RGBColorProps,
         public houseTotal: number,
         public studentYear: number,
         public housePlaceAsc: number,
         public housePlaceDesc:number,
-        public houseSaintPhoto: string | null
+        public houseSaintPhoto: string | null,
+        public darkerHouseColor: RGBColorProps
     ) { }
 }

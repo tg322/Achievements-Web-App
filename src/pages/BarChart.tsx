@@ -10,28 +10,13 @@ import bg from '../img/graph_background_image.png';
 import corinth from '../img/john_bosco.png'
 import BarChartContainerVertical from './components/BarChartContainerVertical';
 import BarChartContainerHorizontal from './components/BarChartContainerHorizontal';
+import { useGraphContext } from '../Utils/GraphContextProvider';
 
 function BarChart(){
 
-    const[orientation, setOrientation] = useState<string>('');
+    const{graphState} = useGraphContext();
 
-    const urlLocation = useLocation();
-    const queryParameters = new URLSearchParams(window.location.search);
-
-    function determineOrientation(){
-        if(urlLocation.pathname.includes('vertical')){
-            setOrientation('vertical');
-        }else if(urlLocation.pathname.includes('horizontal')){
-            setOrientation('horizontal');
-        }
-    }
-
-    useEffect(() => {
-        determineOrientation();
-
-    }, [])
-
-    if(orientation === 'vertical'){
+    if(graphState.GraphSettings.orientation === 'vertical'){
         return(
                 <BarChartContainerVertical/>
         );

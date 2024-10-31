@@ -27,7 +27,9 @@ export class Helper {
             const houseSaint = houseSaints.filter((saint:IHouseSaintsProps) => saint.houseName === singleItem.house_description);
             const saintBlob = await this.fetchBlobs(houseSaint[0].saintImage);
             const saintImage = URL.createObjectURL(saintBlob);
-            housesArray.push(new House(singleItem.house_id, singleItem.house_description, singleItem.house_color, singleItem.house_total, singleItem.student_year, singleItem.house_place_asc, singleItem.house_place_desc, saintImage));
+            const houseColorRGB = this.hexToRgb(singleItem.house_color);
+            const darkerHouseColor = this.DarkerRGBColor(houseColorRGB, 20);
+            housesArray.push(new House(singleItem.house_id, singleItem.house_description, houseColorRGB, singleItem.house_total, singleItem.student_year, singleItem.house_place_asc, singleItem.house_place_desc, saintImage, darkerHouseColor));
         }
         return buildResponse(true, 'Houses built successfully.', housesArray);
     }
