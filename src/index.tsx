@@ -5,7 +5,6 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import BarChart from './pages/BarChart';
 import Leaderboard from './pages/Leaderboard';
-import Initialise from './Utils/Initialise';
 import { GraphProvider } from './Utils/GraphContextProvider';
 import Table from './pages/Table';
 import NewInitialise from './Utils/NewInitialise';

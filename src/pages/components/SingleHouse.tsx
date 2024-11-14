@@ -10,10 +10,11 @@ function SingleHouse(props:SingleHouseProps){
 
     const {graphState} = useGraphContext();
 
-    const houses = graphState.GraphSettings.data;
-    const singleHouse = graphState.GraphSettings.data[0];
-    const orientation = graphState.GraphSettings.orientation;
-
+    
+    if(graphState.GraphSettings.type === 'house'){
+        const houses = graphState.GraphSettings.data;
+        const singleHouse = graphState.GraphSettings.data[0];
+        const orientation = graphState.GraphSettings.orientation;
     return(
         <div style={{display:'flex', width:'100%', height:'100vh', boxSizing:'border-box', flexDirection:'column', backgroundImage:`url(${singleHouse.houseSaintPhoto})`, position:'relative', backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'center', justifyContent:'space-between', gap:'30px'}}>
         <div style={{display:'flex', position:'absolute', width:'100%', height:'100%', backgroundColor:`rgb(${singleHouse.darkerHouseColor.r}, ${singleHouse.darkerHouseColor.g},${singleHouse.darkerHouseColor.b})`, opacity:'0.2', zIndex:'1', top:'0', left:'0'}}></div>
@@ -38,5 +39,8 @@ function SingleHouse(props:SingleHouseProps){
         </div>
     </div>
     );
+    }else{
+        return(<></>);
+    }
 }
 export default React.memo(SingleHouse)

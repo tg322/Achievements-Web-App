@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
-import {GraphSettings, IGraphSettingsProps, DataType, IDataTypeProps} from '../IGraphContextProps';
+import {IGraphSettingsProps, DataType, IDataTypeProps, StudentGraphSettings, HouseGraphSettings} from '../IGraphContextProps';
 import { useEffect, useState } from 'react';
 import { useGraphContext } from './GraphContextProvider';
 import { ApiEndpoints } from './ApiEndpoints';
@@ -43,7 +43,7 @@ function NewInitialise(props:IInitialiseProps){
             throw new Error('Failed to fetch data and build houses.');
         }
 
-        graphSettings = new GraphSettings(dataType, orientation, interval, builtHouses.data);
+        graphSettings = new HouseGraphSettings('house', dataType, builtHouses.data, interval, orientation);
         setGraphState();
         setGraphSetingsCompleted(true);
     }
@@ -53,16 +53,16 @@ function NewInitialise(props:IInitialiseProps){
         let orientation = getOrientation(urlLocation.pathname);
         let dataTypes = getStudentsDataTypes();
 
-        let builtHouses;
+        let builtStudents;
         try{
             const apiResponse = await apiEndpoints.fetchData('/topachievers',dataTypes);
-            builtHouses = await helpers.buildHouses(apiResponse.data);
+            builtStudents = await helpers.buildStudents(apiResponse.data);
         }catch(error){
             throw new Error('Failed to fetch data and build houses.');
         }
         
 
-        graphSettings = new GraphSettings(dataTypes, orientation, interval, builtHouses.data);
+        graphSettings = new StudentGraphSettings('student', dataTypes, builtStudents.data, interval, orientation);
         setGraphState();
         setGraphSetingsCompleted(true);
     }
