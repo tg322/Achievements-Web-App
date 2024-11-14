@@ -6,6 +6,7 @@ import stRomero from './img/oscar_romero.png';
 import stMacKillop from './img/mary_mackillop.png';
 import stNewman from './img/john_henry_newman.png';
 import stStein from './img/edith_stein.png';
+import { IStudentProps, Student } from "./IStudentInterfaces";
 
 
 
@@ -19,9 +20,9 @@ export class Helper {
     
     async buildHouses(rawData:any): Promise<BuildResponseType>{
         let housesArray:IHouseProps[] = [];
+        let filteredHouses:IHouseProps[] = [];
         
-            const testPoints = [0, 50, 40, 30, 20, 10];
-                //
+            // const testPoints = [10, 6116, 4001, 4000, 10000, 1000];
         for (const key of Object.keys(rawData)) {
             const singleItem = rawData[Number(key)];
             const houseSaint = houseSaints.filter((saint:IHouseSaintsProps) => saint.houseName === singleItem.house_description);
@@ -30,8 +31,21 @@ export class Helper {
             const houseColorRGB = this.hexToRgb(singleItem.house_color);
             const darkerHouseColor = this.DarkerRGBColor(houseColorRGB, 20);
             housesArray.push(new House(singleItem.house_id, singleItem.house_description, houseColorRGB, singleItem.house_total, singleItem.student_year, singleItem.house_place_asc, singleItem.house_place_desc, saintImage, darkerHouseColor));
+            filteredHouses = housesArray.filter(item => item.housePlaceAsc != null)
+            .sort((a, b) => a.housePlaceAsc - b.housePlaceAsc);
         }
-        return buildResponse(true, 'Houses built successfully.', housesArray);
+        return buildResponse(true, 'Houses built successfully.', filteredHouses);
+    }
+
+    async buildStudents(rawData:any):Promise<BuildResponseType>{
+        let studentsArray:IStudentProps[] = [];
+
+        for(const key of Object.keys(rawData)){
+            const singleItem = rawData[Number(key)];
+            const houseColorRGB = this.hexToRgb(singleItem.house_color);
+            studentsArray.push(new Student(singleItem.house_description,houseColorRGB,singleItem.student_name, singleItem.student_year,singleItem.student_achievement_points, singleItem.from_date_student_achievement_points));
+        }
+        return buildResponse(true, 'Students built successfully.', studentsArray);
     }
 
     hexToRgb(hex: string) {

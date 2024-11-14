@@ -17,23 +17,24 @@ function Initialise(props:IInitialiseProps){
     const urlLocation = useLocation();
     let graphSettings:IGraphSettingsProps;
 
-    async function fetchData(apiEndpoints:ApiEndpoints,dataType:IDataTypeProps){
+    async function fetchData(apiEndpoints:ApiEndpoints,dataType:IDataTypeProps|null){
+        if(!dataType){
+            try{
+                return await apiEndpoints.fetchAll();
+            }catch(error){
+                throw new Error('Failed to fetch data: ' + error);
+            }
+        }
         switch (dataType.type) {
-            case'house':
+            case'house_initial':
                 try{
-                    return await apiEndpoints.fetchSingleHouseTotals(dataType.house);
+                    return await apiEndpoints.fetchSingleHouseTotals(String(dataType.value));
                 }catch(error){
                     throw new Error('Failed to fetch data: ' + error);
                 }
-            case'year':
+            case'student_year':
                 try{    
-                    return await apiEndpoints.fetchHousesByYear(dataType.year);
-                }catch(error){
-                    throw new Error('Failed to fetch data: ' + error);
-                }
-            case'none':
-                try{
-                    return await apiEndpoints.fetchAll();
+                    return await apiEndpoints.fetchHousesByYear(Number(dataType.value));
                 }catch(error){
                     throw new Error('Failed to fetch data: ' + error);
                 }
@@ -42,14 +43,13 @@ function Initialise(props:IInitialiseProps){
         }
     }
 
-    function getDataType(year:number, house:string):IDataTypeProps{
-
+    function getDataType(year:number, house:string | null):IDataTypeProps|null{
         if(year){
-            return { type: 'year', year };
+            return {type: 'student_year', value:year};
         }else if(house){
-            return {type:'house',house};
+            return {type:'house_initial',value:house};
         }else{
-            return {type:'none'}
+            return null
         }
     }
 
@@ -61,11 +61,11 @@ function Initialise(props:IInitialiseProps){
         const queryParameters = new URLSearchParams(window.location.search);
         const apiEndpoints = new ApiEndpoints();
         const helpers = new Helper();
-        let year = Number(queryParameters.get('year'));
-        let house = String(queryParameters.get('house'));
-        let interval = Number(queryParameters.get('interval') ?? 30000);
+        let year = Number(queryParameters.get('student_year'));
+        let house = queryParameters.get('house_initial');
+        let interval = Number(queryParameters.get('animation_timeout') ?? 30000);
         
-        let dataType: IDataTypeProps = getDataType(year, house);
+        let dataType: IDataTypeProps|null = getDataType(year, house);
         
         let orientation = getOrientation(urlLocation.pathname);
         let builtHouses;
@@ -86,7 +86,6 @@ function Initialise(props:IInitialiseProps){
 
     useEffect(()=>{
         getGraphSettingsAndSetContext();
-        
     },[])
 
     if(graphSettingsCompleted){

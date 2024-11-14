@@ -1,55 +1,63 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useGraphContext } from '../../Utils/GraphContextProvider';
 
 interface ILeaderboardItemTitleProps{
     houseTotal:number;
-    interval?:number;
 }
 
 function LeaderboardItemTitle(props:ILeaderboardItemTitleProps){
 
-    const[total, setTotal] = useState<number>(0);
+    const [count, setCount] = useState<number>(0);
+    const {graphState} = useGraphContext();
 
-    useEffect(() => {
-        let intervalId:NodeJS.Timeout;
-        const timeoutId = setTimeout(() => {
-          intervalId = setInterval(() => {
-            setTotal(prevTotal => {
-              if (prevTotal < props.houseTotal) {
-                //for medium sized numbers
-                if(props.houseTotal > 500){
-                    //make sure not to + 5 over the houseTotal e.g houseTotal = 1991, prevTotal = 1990, + 5 == 1995 (added too much)
-                    //if +5 is greater than houseTotal, only incrememnt by 1, else increment by 5
-                    if(prevTotal + 5 > props.houseTotal){
-                        return prevTotal + 1;
-                    }else{
-                        return prevTotal + 5;
-                    }
-                }else if(props.houseTotal < 500){
-                    return prevTotal + 1;
-                }else{
-                    if(prevTotal + 10 > props.houseTotal){
-                        return prevTotal + 1;
-                    }else{
-                        return prevTotal + 10;
-                    }
-                }
-              } else {
-                clearInterval(intervalId);
-                return prevTotal;
-              }
-            });
-          }, 1);
-        }, props.interval? props.interval : 30000);
+  useEffect(() => {
+    const timeOut = setTimeout(()=>{
+        if (props.houseTotal <= 0) return;
+
+            const totalTime = 4000; // Total time in milliseconds
+            let startTime: number | null = null;
+            let previousCount = 0;
+            let animationFrameId: number;
+
+            const animate = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const elapsed = timestamp - startTime;
+            const progress = Math.min(elapsed / totalTime, 1);
+
+            // Calculate the desired count based on progress
+            const desiredCount = Math.floor(props.houseTotal * progress);
+
+            // Calculate the increment (ensuring it's a whole number)
+            const increment = desiredCount - previousCount;
+
+            if (increment > 0) {
+                // Update the count by the increment
+                setCount((prevCount) => prevCount + increment);
+                previousCount = desiredCount;
+            }
+
+            if (progress < 1) {
+                // Continue the animation
+                animationFrameId = requestAnimationFrame(animate);
+            } else {
+                // Ensure the final count is set
+                setCount(props.houseTotal);
+            }
+            };
+
+            animationFrameId = requestAnimationFrame(animate);
+
+            // Cleanup function
+            return () => {
+            cancelAnimationFrame(animationFrameId);
+            };
+    }, graphState.GraphSettings.interval)
     
-        return () => {
-          clearTimeout(timeoutId);
-          clearInterval(intervalId);
-        };
-      }, [props.houseTotal]);
+  }, [props.houseTotal]);
 
     return(
-        <h1 style={{fontSize:'85px', margin:'0px', textShadow:'-1px 2px #0000003b'}}>{total.toLocaleString()}</h1>
+        <h1 style={{fontSize:'85px', margin:'0px', textShadow:'-1px 2px #0000003b', textAlign:'center'}}>{count.toLocaleString()}</h1>
     );
 }
 

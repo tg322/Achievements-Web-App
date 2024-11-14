@@ -57,7 +57,7 @@ function HouseTotals(props:IHouseTotalsProps){
         "fpsLimit": 60,
         "particles": {
           "number": {
-            "value": 60,
+            "value": 40,
             "density": {
               "enable": true,
               "area": 800
@@ -112,7 +112,7 @@ function HouseTotals(props:IHouseTotalsProps){
           "direction": "bottom",
           "rate": {
             "quantity": 3,
-            "delay": 0.1
+            "delay": 0.5
           },
           "life": {
             "duration": 0,
@@ -131,48 +131,36 @@ function HouseTotals(props:IHouseTotalsProps){
       [],
     );
 
-    if(graphState.GraphSettings.dataType.type === 'year'){
+    if(graphState.GraphSettings.dataType && !Array.isArray(graphState.GraphSettings.dataType) &&
+    graphState.GraphSettings.dataType.type === 'student_year'){
         return(
-            <div style={{display:'flex', width:'100%', height:'100vh', boxSizing:'border-box', flexDirection:'column', backgroundImage:`url(${bg})`, position:'relative', backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'center', justifyContent:'space-between'}}>
-                {/* <Particles
-                    id="tsparticles"
-                    particlesLoaded={particlesLoaded}
-                    
-                    options={options}
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        position: "absolute",
-                        top: "0",
-                        left: "0"
-                    }}
-                /> */}
+          <div style={{display:'flex', width:'100%', height:'100vh', boxSizing:'border-box', flexDirection:'column', backgroundImage:`url(${bg})`, position:'relative', backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'center', justifyContent:'space-between'}}>
 
-                <div style={{display:'flex', position:'absolute', width:'100%', height:'100%', backgroundColor:'black', opacity:'0.4', zIndex:'1', top:'0', left:'0'}}></div>
-    
-                <div style={{display:'flex', flexDirection:'column', backgroundColor:'#410541', zIndex:'4', padding:'30px 0px 20px 0px', color:'white'}}>
-                    <h2 style={{fontSize:'40px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'4px' }}>GREAT WORK</h2>
-                    <h1 style={{fontSize:'100px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'12px'}}>YEAR {graphState.GraphSettings.dataType.year}</h1>
-                </div>
-                <div style={{display:'flex', flexDirection:'column', height:'fit-content', gap:'30px', alignItems:'flex-start', zIndex:'4', justifyContent:'center', padding:'0px 30px 0px 0px'}}>
-                    {graphState.GraphSettings.data && props.maxRounded && graphState.GraphSettings.data.map((singleHouse, key) => {
-                        let heightPercentage = singleHouse.houseTotal / props.maxRounded * 100;
-                        if(heightPercentage < 35){
-                            heightPercentage = 35.5;
-                        }
-                        return(
-                            <Bar key={key} house={singleHouse} heightPercentage={heightPercentage} pos={key}/>
-                        )
-                    })
-                    }
-                </div>
-                
-                <div style={{display:'flex', flexDirection:'column', backgroundColor:'#410541', zIndex:'4', padding:'30px 0px 20px 0px', color:'white'}}>
-                    <h2 style={{fontSize:'40px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'4px' }}>GREAT WORK</h2>
-                    <h1 style={{fontSize:'100px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'12px'}}>YEAR {graphState.GraphSettings.dataType.year}</h1>
-                </div>
-            </div> 
-        );
+              <div style={{display:'flex', position:'absolute', width:'100%', height:'100%', backgroundColor:'black', opacity:'0.4', zIndex:'1', top:'0', left:'0'}}></div>
+  
+              <div style={{display:'flex', flexDirection:'column', backgroundColor:'#410541', zIndex:'4', padding:'30px 0px 20px 0px', color:'white'}}>
+                  <h2 style={{fontSize:'40px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'4px' }}>GREAT WORK</h2>
+                  <h1 style={{fontSize:'100px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'12px'}}>YEAR {graphState.GraphSettings.dataType.value}</h1>
+              </div>
+              <div style={{display:'flex', flexDirection:'column', height:'fit-content', gap:'30px', alignItems:'flex-start', zIndex:'4', justifyContent:'center', padding:'0px 30px 0px 0px'}}>
+                  {graphState.GraphSettings.data && props.maxRounded && graphState.GraphSettings.data.map((singleHouse, key) => {
+                      let heightPercentage = singleHouse.houseTotal / props.maxRounded * 100;
+                      if(heightPercentage < 35){
+                          heightPercentage = 35.5;
+                      }
+                      return(
+                          <Bar key={key} house={singleHouse} heightPercentage={heightPercentage} pos={key}/>
+                      )
+                  })
+                  }
+              </div>
+              
+              <div style={{display:'flex', flexDirection:'column', backgroundColor:'#410541', zIndex:'4', padding:'30px 0px 20px 0px', color:'white'}}>
+                  <h2 style={{fontSize:'40px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'4px' }}>GREAT WORK</h2>
+                  <h1 style={{fontSize:'100px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'12px'}}>YEAR {graphState.GraphSettings.dataType.value}</h1>
+              </div>
+          </div> 
+      );
     }else{
         return(
             <div style={{display:'flex', width:'100%', height:'100vh', boxSizing:'border-box', flexDirection:'column', backgroundImage:`url(${bg})`, position:'relative', backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'center', justifyContent:'space-between', padding:'117px 0px 0px 0px'}}>

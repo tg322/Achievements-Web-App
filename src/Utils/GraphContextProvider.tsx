@@ -15,7 +15,7 @@ type Action =
   | { type: 'SET_GRAPH_STATE'; payload: IGraphSettingsProps }
   | { type: 'CLEAR_GRAPH_STATE'; };
 
-const initialState: GraphState = { GraphSettings: {dataType:{type:'none'}, orientation:null, interval:30000, data:[]}};
+const initialState: GraphState = { GraphSettings: {dataType:null, orientation:null, interval:30000, data:[]}};
 
 
 //Create the reducer function (I hate all the const functions wtf is this all about.)
@@ -26,7 +26,7 @@ const navigationReducer = (graphState: GraphState, action: Action): GraphState =
         case 'SET_GRAPH_STATE':
             return { ...graphState, GraphSettings: action.payload };
         case 'CLEAR_GRAPH_STATE':
-          return { ...graphState, GraphSettings: {dataType:{type:'none'}, orientation:null, interval:30000, data:[]}};
+          return { ...graphState, GraphSettings: {dataType:null, orientation:null, interval:30000, data:[]}};
         default:
             return graphState;
     }

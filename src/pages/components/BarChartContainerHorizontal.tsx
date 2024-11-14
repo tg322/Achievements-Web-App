@@ -30,54 +30,28 @@ function BarChartContainerHorizontal(){
         setMaxRounded(maxRounded);
     }
 
-    //need to think about this one
-    // async function getHouseImage(){
-    //     const singleHouse = houseSaints.filter((saint:IHouseSaintsProps) => saint.houseName === singleHouseName);
-    //     console.log(singleHouse);
-    //     const saintBlob = await helpers.fetchBlobs(singleHouse[0].saintImage);
-    //     const saintImage = URL.createObjectURL(saintBlob);
-    //     return saintImage
-    // }
-
-    //probably not needed
-    // async function getHouseDetails(){
-    //     if(houses.length < 0){
-    //         return false
-    //     }
-
-    //     let houseImage = await getHouseImage();
-    //     if(!houseImage){
-    //         throw new Error('House Image was not supplied.');
-    //     }
-
-    //     let houseName = houses[0].houseDescription;
-    //     let houseColor = houses[0].houseColor;
-    //     let houseRGB =  helpers.hexToRgb(houseColor);
-    //     let houseDarkerColour = helpers.DarkerRGBColor(houseRGB, 20);
-
-    //     console.log('houseRGB',houseRGB,'darkerRGB', houseDarkerColour);
-         
-    //     let houseDetails = new HouseDetails(houseImage, houseName, houseRGB, houseDarkerColour);
-
-    //     setHouseDetails(houseDetails);
-
-    //     console.log(houseDarkerColour);
-        
-    // }
-
     useEffect(() => {
             filterArray();
     }, [graphState.GraphSettings.data]);
-
-    if(graphState.GraphSettings.dataType.type === 'house'){
-        return(
-            <SingleHouse maxRounded={maxRounded}/>
-        );
-    }else if(graphState.GraphSettings.dataType.type === 'year'){
-        return(
-            <HouseTotals maxRounded={maxRounded}/>
-        );
-    }else{
+    if(graphState.GraphSettings.dataType && !Array.isArray(graphState.GraphSettings.dataType)){
+        
+        if(graphState.GraphSettings.dataType.type === 'house_initial'){
+            console.log(graphState.GraphSettings.dataType.value);
+            return(
+                <SingleHouse maxRounded={maxRounded}/>
+            );
+        }else if(graphState.GraphSettings.dataType.type === 'student_year'){
+            console.log(graphState.GraphSettings.dataType.value);
+            return(
+                <HouseTotals maxRounded={maxRounded}/>
+            );
+        }else{
+            return(
+                <HouseTotals maxRounded={maxRounded}/>
+            );
+        }
+    }
+    else{
         return(
             <HouseTotals maxRounded={maxRounded}/>
         );

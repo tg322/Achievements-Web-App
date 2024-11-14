@@ -7,29 +7,31 @@ import BarChart from './pages/BarChart';
 import Leaderboard from './pages/Leaderboard';
 import Initialise from './Utils/Initialise';
 import { GraphProvider } from './Utils/GraphContextProvider';
+import Table from './pages/Table';
+import NewInitialise from './Utils/NewInitialise';
+import Home from './pages/Home';
 
 const Content = () => {
-
-  // const queryParameters = new URLSearchParams(window.location.search);
-  // const year = queryParameters.get("year");
-
-  // console.log(year);
 
   return(
     <BrowserRouter>
       <Routes>
+      <Route path='/' element={<Home/>}/>
         <Route path='/vertical/'>
-          <Route path="barchart" element={<Initialise>
+          <Route path="barchart" element={<NewInitialise>
             <BarChart/>
-          </Initialise>}/>
+          </NewInitialise>}/>
         </Route>
         <Route path='/horizontal/'>
-          <Route path="barchart" element={<Initialise>
+          <Route path="barchart" element={<NewInitialise>
             <BarChart/>
-          </Initialise>}/>
-          <Route path='leaderboard' element={<Initialise>
+          </NewInitialise>}/>
+          <Route path='leaderboard' element={<NewInitialise>
             <Leaderboard/>
-          </Initialise>}/>
+          </NewInitialise>}/>
+          <Route path='table' element={<NewInitialise>
+            <Table/>
+          </NewInitialise>}/>
         </Route>
         {/* <Route path="/vertical/barchart" element={<BarChart/>}/>
         <Route path="/horizontal/barchart" element={<BarChart/>}/>

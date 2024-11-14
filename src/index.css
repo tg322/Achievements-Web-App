@@ -10,4 +10,57 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+    box-sizing:border-box;
+    background-color:gray;
+    color:white;
+    padding:3px;
+    border-radius:4px;
+    font-size:14px;
+    text-wrap: nowrap;
 }
+
+.table_component {
+  border: 1px solid #dededf;
+  height: 100%;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 1px;
+  text-align: left;
+}
+
+.table_component caption {
+  caption-side: top;
+  text-align: left;
+}
+
+.table_component th {
+  border: 1px solid #dededf;
+  background-color: #eceff1;
+  color: #000000;
+  padding: 5px;
+}
+
+.table_component td {
+  border: 1px solid #dededf;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 5px;
+}
+
+.section_button{
+  display:flex;
+  flex-direction:column;
+  width:fit-content;
+  padding: 10px;
+  border-radius: 8px;
+  cursor:pointer;
+  user-select: none;
+}
+.section_button h2{
+  margin:0px;
+}
+.section_button:hover{
+  background-color: #dededf;
+}
+

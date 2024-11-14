@@ -1,5 +1,6 @@
 import axios from "axios";
 import { buildResponse } from "../BuildResponse";
+import { IDataTypeProps } from "../IGraphContextProps";
 
 export interface BuildResponseType {
     success: boolean;
@@ -82,5 +83,66 @@ export class ApiEndpoints{
         });
     }
 
+    async fetchHouses(dataTypes:IDataTypeProps | null): Promise<BuildResponseType>{
+        return new Promise(async (resolve, reject) => {
+            const baseURL = process.env.REACT_APP_BASE_API_URL;
+            if(dataTypes !== null){
+                const finalURL = 'https://achievements-api.stpaulscatholiccollege.co.uk/houses?';
+            }
+        if(baseURL){
+            axios.get(baseURL)
+            .then(async function (response) {
+                // handle success - Store data in useStates
+                resolve(buildResponse(true, 'All house totals returned successfully.', response.data));
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+                reject(buildResponse(false, 'An error occurred while fetching all house totals.', undefined,error));
+            })
+        }
+        });
+    }
 
+    async fetchData(endpoint:string,dataTypes:IDataTypeProps | IDataTypeProps[] | null): Promise<BuildResponseType>{
+        return new Promise(async (resolve, reject) => {
+            const baseURL = process.env.REACT_APP_BASE_API_URL;
+            let finalURL;
+            if(dataTypes !== null){
+                finalURL = this.buildURL(endpoint, dataTypes);
+            }else{
+                finalURL = baseURL + endpoint;
+            }
+
+            axios.get(finalURL)
+            .then(async function (response) {
+                // handle success - Store data in useStates
+                resolve(buildResponse(true, 'Data returned successfully.', response.data));
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+                reject(buildResponse(false, 'An error occurred while fetching data.', undefined,error));
+            })
+
+    });
+    }
+
+    buildURL(endpoint:string, params:IDataTypeProps | IDataTypeProps[]){
+        const baseURL = process.env.REACT_APP_BASE_API_URL;
+        let finalURL = baseURL + endpoint;
+        if(Array.isArray(params)){
+            params.map((param, pos)  => {
+                if(pos === 0) {
+                    finalURL = finalURL + `?${param.type}=${param.value}`;
+                }
+                else {
+                    finalURL = finalURL + `&${param.type}=${param.value}`;
+                }
+            });
+        }else{
+            finalURL = finalURL + `?${params.type}=${params.value}`;
+        }
+        return finalURL
+    }
 }
