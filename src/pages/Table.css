@@ -201,3 +201,30 @@
     overflow: visible;
     overflow-x: clip;
 }
+
+.tableRow{
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    box-sizing:border-box;
+    justify-content:space-between;
+    color:#e1b164;
+    gap:20px;
+    border-bottom:solid 1px #e1b1642e;
+    padding-bottom:10px;
+    opacity:0.0;
+}
+
+@keyframes tableRowVisibility {
+    from {
+      opacity: 0.0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+
+.tableRowVisible{
+    animation:
+    tableRowVisibility 2s ease-in-out forwards;
+}

@@ -37,35 +37,40 @@ function Table(){
                 <div style={{display:'flex', flexDirection:'column', width:'100%', gap:'30px'}}>
                     <div style={{display:'flex', flexDirection:'column', width:'100%', alignItems:'center'}}>
                         <img style={{width:'180px'}} src={crown}/>
-                        <h1 style={{color:'#e1b164', margin:'0px', fontFamily: 'Bebas Neue", sans-serif', fontWeight:'400', fontSize:'40px'}}>THIS WEEKS</h1>
+                        <h1 style={{color:'#e1b164', margin:'0px', fontFamily: 'Bebas Neue", sans-serif', fontWeight:'400', fontSize:'40px'}}>THIS WEEK'S</h1>
                         <h1 style={{color:'#e1b164', fontFamily:'RoyalWedding', fontSize:'160px', fontWeight:'normal', margin:'0px', lineHeight:'0.9'}}>Roll of Honour</h1>
                     </div>
                     
                 
-                <div id='table' style={{display:'flex', flexDirection:'column', width:'100%', gap:'10px'}}>
-                    {graphState.GraphSettings.data.students.map((student:IStudentProps,key) => {
-                            return(
-                                <TableRow>
-                                    <TableColumn width='10%'>
-                                        <p style={{fontSize:'30px', fontWeight:'bold', margin:'0px'}}>{Number(key) + 4 + 'th'}</p>
-                                    </TableColumn>
-                                    <TableColumn width='80%'>
-                                        <div style={{display:'flex', flexDirection:'row', gap:'25px', alignItems:'center'}}>
-                                            <div id='circle-photo' style={{display:'flex', width:'60px', height:'60px', backgroundColor:'white', borderRadius:'200px', alignItems:'center', justifyContent:'center', overflow:'hidden', border:'solid 4px #e1b164'}}>
-                                                <div id='photo' style={{display:'flex', width:'100px', height:'100px', backgroundImage:`url(${student.blob? student.blob : user})`, backgroundRepeat:'no-repeat', backgroundSize:'contain', backgroundPosition:'center'}}>
-                                                    
-                                                </div>
+                    <div id='table' style={{display:'flex', flexDirection:'column', width:'100%', gap:'10px'}}>
+                        {graphState.GraphSettings.data.students.map((student:IStudentProps,key) => {
+                                return(
+                                    <TableRow key={key} keyPos={key}>
+                                        <TableColumn width='10%'>
+                                            <div style={{display:'flex', flexDirection:'row', gap:'0px', justifyContent:'center'}}>
+                                                <span style={{fontSize:'40px', fontWeight:'bold', margin:'0px'}}>{Number(key) + 4}</span><span style={{fontSize:'25px'}}>th</span>
                                             </div>
-                                            <p style={{fontSize:'30px', fontWeight:'bold', margin:'0px'}}>{student.studentForename + ' ' + student.studentSurname + ' ' + student.studentReg}</p>
-                                        </div>
-                                    </TableColumn>
-                                    <TableColumn width='auto'>
-                                        <p style={{fontSize:'30px', fontWeight:'bold', margin:'0px'}}>{student.points}</p>
-                                    </TableColumn>
-                                </TableRow>
-                            );
-                    })}
-                </div>
+                                        </TableColumn>
+                                        <TableColumn width='80%'>
+                                            <div style={{display:'flex', flexDirection:'row', gap:'25px', alignItems:'center'}}>
+                                                <div id='circle-photo' style={{display:'flex', width:'60px', height:'60px', backgroundColor:'white', borderRadius:'200px', alignItems:'center', justifyContent:'center', overflow:'hidden', border:'solid 4px #e1b164'}}>
+                                                    <div id='photo' style={{display:'flex', width:'100px', height:'100px', backgroundImage:`url(${student.blob? student.blob : user})`, backgroundRepeat:'no-repeat', backgroundSize:'contain', backgroundPosition:'center'}}>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <p style={{fontSize:'30px', fontWeight:'bold', margin:'0px'}}>{student.studentForename + ' ' + student.studentSurname + ' ' + student.studentReg}</p>
+                                            </div>
+                                        </TableColumn>
+                                        <TableColumn width='auto'>
+                                            <div style={{width:'60px', height:'60px', display:'flex', alignItems:'center', justifyContent:'center', backgroundColor:'#e1b164', borderRadius:'200px'}}>
+                                                <p style={{fontSize:'30px', fontWeight:'800', margin:'0px', color:'#1d333d'}}>{student.points}</p>
+                                            </div>
+                                            
+                                        </TableColumn>
+                                    </TableRow>
+                                );
+                        })}
+                    </div>
                 </div>
             </div>   
         );

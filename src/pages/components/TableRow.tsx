@@ -1,13 +1,27 @@
 import * as React from 'react';
+import '../Table.css';
+import { useEffect, useState } from 'react';
+import { useGraphContext } from '../../Utils/GraphContextProvider';
 
 interface ITableRowProps{
     children:React.ReactNode;
+    keyPos:number;
 }
 
 function TableRow(props:ITableRowProps){
 
+    const[animationClass, setAnimationClass] = useState<string>('');
+
+    const{graphState} = useGraphContext();
+
+    useEffect(() => {
+        setTimeout(() => {
+            setAnimationClass(' tableRowVisible')
+            }, graphState.GraphSettings.interval + props.keyPos * 200);
+    }, []);
+
     return(
-        <div id='table-row' style={{display:'flex', flexDirection:'row', width:'100%', boxSizing:'border-box', justifyContent:'space-between', color:'#e1b164', gap:'20px', borderBottom:'solid 1px #e1b1642e', paddingBottom:'10px'}}>
+        <div className={'tableRow' + animationClass} id='table-row'>
             {props.children}
         </div>
     );
