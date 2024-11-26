@@ -7,7 +7,6 @@ import { ApiEndpoints } from './ApiEndpoints';
 import { Helper } from '../Helpers';
 import BarChart from '../pages/BarChart';
 import Leaderboard from '../pages/Leaderboard';
-import { jsx } from 'react/jsx-runtime';
 import Table from '../pages/Table';
 
 interface IInitialiseProps{
@@ -26,10 +25,25 @@ function NewInitialise(props:IInitialiseProps){
     const helpers = new Helper();
     const urlLocation = useLocation();
     let graphSettings:IGraphSettingsProps;
+    let apiURL:string = 'https://achievements-api.stpaulscatholiccollege.co.uk';
     const {graphState, graphDispatch} = useGraphContext();
 
+    async function testConnection(){
+        try{
+            const apiResponse = await apiEndpoints.pingInternalApi();
+            if(apiResponse.success){
+                apiURL = 'http://172.23.243.76:81';
+            }
+        }catch(error){
+            console.log('Error');
+        }
+    }   
+
     async function initialiseBarchartAndLeaderboard(){
-        let orientation = getOrientation(urlLocation.pathname);
+        let orientation = await helpers.getOrientation(urlLocation.pathname);
+        if(!orientation.success){
+            throw new Error('Orientation failed.');
+        }
         let year = Number(queryParameters.get('student_year'));
         let house = queryParameters.get('house_initial');
         let interval = Number(queryParameters.get('animation_timeout') ?? 30000);
@@ -37,38 +51,40 @@ function NewInitialise(props:IInitialiseProps){
 
         let builtHouses;
         try{
-            const apiResponse = await apiEndpoints.fetchData('/houses', dataType);
+            const apiResponse = await apiEndpoints.fetchData(apiURL, '/houses', dataType);
             builtHouses = await helpers.buildHouses(apiResponse.data);
         }catch(error){
             throw new Error('Failed to fetch data and build houses.');
         }
 
-        graphSettings = new HouseGraphSettings('house', dataType, builtHouses.data, interval, orientation);
+        graphSettings = new HouseGraphSettings('house', dataType, builtHouses.data, interval, orientation.data);
         setGraphState();
         setGraphSetingsCompleted(true);
     }
+
+
     async function initialiseTable(){
-        
-        let interval = Number(queryParameters.get('animation_timeout') ?? 30000);
-        let orientation = getOrientation(urlLocation.pathname);
-        let dataTypes = getStudentsDataTypes();
+        try {
+            await testConnection();
+            let orientation = await helpers.getOrientation(urlLocation.pathname);
+            if(!orientation.success){
+                throw new Error('Orientation failed.');
+            }
+            let interval = Number(queryParameters.get('animation_timeout') ?? 30000);
+            
+            let dataTypes = await helpers.getStudentsDataTypes(queryParameters);
+            
+            const apiResponse = await apiEndpoints.fetchData(apiURL, '/topachievers', dataTypes.data);
+            const builtStudents = await helpers.buildStudents(apiResponse.data);
 
-        let builtStudents;
-        try{
-            const apiResponse = await apiEndpoints.fetchData('/topachievers',dataTypes);
-            builtStudents = await helpers.buildStudents(apiResponse.data);
-        }catch(error){
-            throw new Error('Failed to fetch data and build houses.');
+            graphSettings = new StudentGraphSettings('student', dataTypes.data, builtStudents.data, interval, orientation.data);
+            setGraphState();
+            setGraphSetingsCompleted(true);
+        } catch (error) {
+            console.error('Error in initialiseTable:', error);
         }
-        
+    }
 
-        graphSettings = new StudentGraphSettings('student', dataTypes, builtStudents.data, interval, orientation);
-        setGraphState();
-        setGraphSetingsCompleted(true);
-    }
-    function getOrientation(pathName:string):string{
-        return pathName.includes('vertical')? 'vertical' : 'horizontal';
-    }
     function getHouseDataType(year:number, house:string | null):IDataTypeProps|null{
         if(year){
             return new DataType('student_year',year)
@@ -79,21 +95,12 @@ function NewInitialise(props:IInitialiseProps){
         }
     }
 
-    function getStudentsDataTypes(){
-        let dataTypesTest:IDataTypeProps[] = [];
-        
-        const entriesArray = Array.from(queryParameters.entries());
-        if(entriesArray.length === 0) return null;
-        entriesArray.forEach(([key, value]) => {
-            if(key !== 'animation_timeout')dataTypesTest.push(new DataType(key,value))
-        });
-        return dataTypesTest
-    }
     function setGraphState(){
         if(graphState){
             graphDispatch({type:'CLEAR_GRAPH_STATE'});
         }
         graphDispatch({type:'SET_GRAPH_STATE', payload:graphSettings});
+        setGraphSetingsCompleted(true);
     }
 
     useEffect(()=>{
@@ -110,7 +117,7 @@ function NewInitialise(props:IInitialiseProps){
                 })
             }
         })
-    },[graphSettingsCompleted]);
+    },[children]);
 
     if(graphSettingsCompleted){
         return(<>{children}</>);

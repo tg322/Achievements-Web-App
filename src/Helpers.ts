@@ -6,7 +6,8 @@ import stRomero from './img/oscar_romero.png';
 import stMacKillop from './img/mary_mackillop.png';
 import stNewman from './img/john_henry_newman.png';
 import stStein from './img/edith_stein.png';
-import { IStudentProps, Student } from "./IStudentInterfaces";
+import { IStudentProps, Student, StudentStructure } from "./IStudentInterfaces";
+import { DataType, IDataTypeProps } from "./IGraphContextProps";
 
 
 
@@ -39,13 +40,31 @@ export class Helper {
 
     async buildStudents(rawData:any):Promise<BuildResponseType>{
         let studentsArray:IStudentProps[] = [];
+        let filteredStudents:IStudentProps[] = [];
+        let topThree:IStudentProps[] = [];
 
         for(const key of Object.keys(rawData)){
             const singleItem = rawData[Number(key)];
-            const houseColorRGB = this.hexToRgb(singleItem.house_color);
-            studentsArray.push(new Student(singleItem.house_description,houseColorRGB,singleItem.student_name, singleItem.student_year,singleItem.student_achievement_points, singleItem.from_date_student_achievement_points));
+            studentsArray.push(new Student(
+                singleItem.house_description,
+                singleItem.house_color,
+                singleItem.house_accent,
+                singleItem.student_forename,
+                singleItem.student_surname,
+                singleItem.student_reg,
+                singleItem.student_year,
+                singleItem.student_achievement_points,
+                singleItem.student_photo_graph_api? singleItem.student_photo_graph_api : null));
         }
-        return buildResponse(true, 'Students built successfully.', studentsArray);
+        
+        filteredStudents = studentsArray.filter(item => item.points != null)
+            .sort((a, b) => a.points - b.points);
+            filteredStudents.reverse();
+        topThree.push(filteredStudents[1],filteredStudents[0],filteredStudents[2]);
+        filteredStudents.splice(0,3);
+        const builtStudents = new StudentStructure(topThree, filteredStudents)
+
+        return buildResponse(true, 'Students built successfully.', builtStudents);
     }
 
     hexToRgb(hex: string) {
@@ -74,4 +93,32 @@ export class Helper {
 
         return darkRGB
       }
+
+        getStudentsDataTypes(queryParameters:URLSearchParams):Promise<BuildResponseType>{
+            return new Promise(async (resolve) => {
+                let dataTypesTest:IDataTypeProps[] = [];
+                
+                const entriesArray = Array.from(queryParameters.entries());
+                if(entriesArray.length === 0) resolve (buildResponse(true, 'Datatypes fetched successfully.', null));
+                entriesArray.forEach(([key, value]) => {
+                    if(key !== 'animation_timeout'){
+                            dataTypesTest.push(new DataType(key,value))
+                    }
+                });
+                resolve (buildResponse(true, 'Datatypes fetched successfully.', dataTypesTest));
+            });
+        }
+
+        getOrientation(pathName:string):Promise<BuildResponseType>{
+            return new Promise(async (resolve, reject) => {
+                if(pathName.includes('vertical') || pathName.includes('horizontal')){
+                    
+                    resolve (buildResponse(true, 'Orientation returned successfully.', pathName.includes('vertical')? 'vertical' : 'horizontal'));
+                }else{
+                    reject(buildResponse(false, 'No orientation found.'))
+                }
+            });
+        }
+
+
     }

@@ -32,9 +32,6 @@ const Content = () => {
             <Table/>
           </NewInitialise>}/>
         </Route>
-        {/* <Route path="/vertical/barchart" element={<BarChart/>}/>
-        <Route path="/horizontal/barchart" element={<BarChart/>}/>
-        <Route path='/leaderboard/houses'/> */}
       </Routes>
     </BrowserRouter>
   );
@@ -44,11 +41,9 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
     <GraphProvider>
       <Content/>
     </GraphProvider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

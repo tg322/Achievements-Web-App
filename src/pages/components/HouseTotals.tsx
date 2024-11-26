@@ -128,7 +128,7 @@ function HouseTotals(props:IHouseTotalsProps){
                   <div style={{display:'flex', position:'absolute', width:'100%', height:'100%', backgroundColor:'black', opacity:'0.4', zIndex:'1', top:'0', left:'0'}}></div>
       
                   <div style={{display:'flex', flexDirection:'column', backgroundColor:'#410541', zIndex:'4', padding:'30px 0px 20px 0px', color:'white'}}>
-                      <h2 style={{fontSize:'40px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'4px' }}>GREAT WORK</h2>
+                      <h2 style={{fontSize:'40px', margin:'0px', textAlign:'center', fontFamily: 'Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'4px' }}>GREAT WORK</h2>
                       <h1 style={{fontSize:'100px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'12px'}}>YEAR {graphState.GraphSettings.dataType.value}</h1>
                   </div>
                   <div style={{display:'flex', flexDirection:'column', height:'fit-content', gap:'30px', alignItems:'flex-start', zIndex:'4', justifyContent:'center', padding:'0px 30px 0px 0px'}}>

@@ -64,3 +64,15 @@ code {
   background-color: #dededf;
 }
 
+
+@font-face {
+  font-family: 'RoyalWedding';
+  src: url('./assets/fonts/RoyalWedding-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('./assets/fonts/BebasNeue-Regular.ttf') format('truetype');
+  
+}

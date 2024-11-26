@@ -104,12 +104,12 @@ export class ApiEndpoints{
         });
     }
 
-    async fetchData(endpoint:string,dataTypes:IDataTypeProps | IDataTypeProps[] | null): Promise<BuildResponseType>{
+    async fetchData(baseURL:string, endpoint:string,dataTypes:IDataTypeProps | IDataTypeProps[] | null): Promise<BuildResponseType>{
         return new Promise(async (resolve, reject) => {
-            const baseURL = process.env.REACT_APP_BASE_API_URL;
+            
             let finalURL;
             if(dataTypes !== null){
-                finalURL = this.buildURL(endpoint, dataTypes);
+                finalURL = this.buildURL(baseURL, endpoint, dataTypes);
             }else{
                 finalURL = baseURL + endpoint;
             }
@@ -128,8 +128,7 @@ export class ApiEndpoints{
     });
     }
 
-    buildURL(endpoint:string, params:IDataTypeProps | IDataTypeProps[]){
-        const baseURL = process.env.REACT_APP_BASE_API_URL;
+    buildURL(baseURL:string, endpoint:string, params:IDataTypeProps | IDataTypeProps[]){
         let finalURL = baseURL + endpoint;
         if(Array.isArray(params)){
             params.map((param, pos)  => {
@@ -144,5 +143,24 @@ export class ApiEndpoints{
             finalURL = finalURL + `?${params.type}=${params.value}`;
         }
         return finalURL
+    }
+
+
+    async pingInternalApi(): Promise<BuildResponseType>{
+        return new Promise(async (resolve, reject) => {
+            const baseURL = 'http://172.23.243.76:81'
+
+            const finalURL = baseURL + '/ping';
+            axios.get(finalURL)
+            .then(async function (response) {
+                resolve(buildResponse(true, 'Data returned successfully.', response.data));
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+                reject(buildResponse(false, 'An error occurred while fetching data.', undefined,error));
+            })
+
+    });
     }
 }

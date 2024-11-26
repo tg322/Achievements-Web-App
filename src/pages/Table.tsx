@@ -2,46 +2,72 @@ import * as React from 'react';
 import bg from '../img/HouseTotalsBackground.png';
 import { useGraphContext } from '../Utils/GraphContextProvider';
 import { IStudentProps } from '../IStudentInterfaces';
+import user from '../img/user-solid.svg';
+import './Table.css';
+import Banner from './components/Banner';
+import BannerContent from './components/BannerContent';
+import { IGraphSettingsProps } from '../IGraphContextProps';
+import crown from '../img/crown-sharp-duotone-solid.svg';
+import { useEffect, useState } from 'react';
+import TableRow from './components/TableRow';
+import TableColumn from './components/TableColumn';
 
 function Table(){
-
     const{graphState} = useGraphContext();
 
     if(graphState.GraphSettings.type === 'student'){
+        
         return(
-            <div id='container' style={{display:'flex', backgroundImage:`url(${bg})`, backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover', width:'100%', height:'100vh', boxSizing:'border-box', padding:'30px', flexDirection:'column', alignItems:'center'}}>
-                <h1 style={{color:'white'}}>CELEBRATING OUR TOP ACHIEVERS</h1>
-                <div id='table' style={{display:'flex', flexDirection:'column', width:'100%'}}>
-
-                    {graphState.GraphSettings.type === 'student' && graphState.GraphSettings.data.map((student:IStudentProps,key) => {
-    
-                        return(
-                            <div key={key} id='table-row' style={{display:'flex', flexDirection:'row', width:'100%', borderBottom:'solid 1px white', boxSizing:'border-box', padding:'10px 0px', justifyContent:'space-between', color:'white'}}>
-    
-                                <div id="table-col" style={{display:'flex', flexDirection:'column'}}>
-                                    <div id='circle-photo' style={{display:'flex', width:'100px', height:'100px', backgroundColor:'red', borderRadius:'200px'}}>
-    
-                                    </div>
-                                </div>
-    
-                                <div id="table-col" style={{display:'flex', flexDirection:'column'}}>
-                                    <p style={{fontSize:'30px', fontWeight:'bold'}}>{student.studentName}</p>
-                                </div>
-    
-                                <div id="table-col" style={{display:'flex', flexDirection:'column'}}>
-                                    <p style={{fontSize:'30px', fontWeight:'bold'}}>Year {student.studentYear}</p>
-                                </div>
-    
-                                <div id="table-col" style={{display:'flex', flexDirection:'column'}}>
-                                    <p style={{fontSize:'30px', fontWeight:'bold'}}>{student.points}</p>
-                                </div>
-    
-                            </div>
-                        );
-                    })}
-
+            <div style={{display:'flex', flexDirection:'column', backgroundColor:'#1d333d', backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover', width:'100%', boxSizing:'border-box', padding:'0px 30px 30px 30px', minHeight:'100vh', justifyContent:'space-between'}}>
+                <div style={{display:'flex', backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover', width:'100%', flexDirection:'column', alignItems:'center', height:'500px'}}>
+                    <div className='bannerContainer' style={{position:'absolute', boxSizing:'border-box', padding:'0px 30px'}}>
+                        {graphState.GraphSettings.data.topThree.map((student:IStudentProps,key) => {
+                            return(
+                                <Banner key={key} keyPos={key} type='Parent' backgroundColor={student.houseColor} size={key === 0? 'Medium' : key === 1? 'Large' : 'Small'}>
+                                    <Banner keyPos={key} type='Inset' backgroundColor={student.darkerHouseColor}/>
+                                    <Banner keyPos={key} type='Inset Two' backgroundColor={student.houseColor}/>
+                                    <BannerContent keyPos={key} studentName={student.studentForename + ' ' + student.studentReg} studentPoints={student.points} backgroundColor={student.darkerHouseColor} studentPhoto={student.blob? student.blob : undefined}/>
+                                </Banner>
+                            )
+                            
+                        })}
+                   
+                    </div>
                 </div>
-            </div>
+                <div style={{display:'flex', flexDirection:'column', width:'100%', gap:'30px'}}>
+                    <div style={{display:'flex', flexDirection:'column', width:'100%', alignItems:'center'}}>
+                        <img style={{width:'180px'}} src={crown}/>
+                        <h1 style={{color:'#e1b164', margin:'0px', fontFamily: 'Bebas Neue", sans-serif', fontWeight:'400', fontSize:'40px'}}>THIS WEEKS</h1>
+                        <h1 style={{color:'#e1b164', fontFamily:'RoyalWedding', fontSize:'160px', fontWeight:'normal', margin:'0px', lineHeight:'0.9'}}>Roll of Honour</h1>
+                    </div>
+                    
+                
+                <div id='table' style={{display:'flex', flexDirection:'column', width:'100%', gap:'10px'}}>
+                    {graphState.GraphSettings.data.students.map((student:IStudentProps,key) => {
+                            return(
+                                <TableRow>
+                                    <TableColumn width='10%'>
+                                        <p style={{fontSize:'30px', fontWeight:'bold', margin:'0px'}}>{Number(key) + 4 + 'th'}</p>
+                                    </TableColumn>
+                                    <TableColumn width='80%'>
+                                        <div style={{display:'flex', flexDirection:'row', gap:'25px', alignItems:'center'}}>
+                                            <div id='circle-photo' style={{display:'flex', width:'60px', height:'60px', backgroundColor:'white', borderRadius:'200px', alignItems:'center', justifyContent:'center', overflow:'hidden', border:'solid 4px #e1b164'}}>
+                                                <div id='photo' style={{display:'flex', width:'100px', height:'100px', backgroundImage:`url(${student.blob? student.blob : user})`, backgroundRepeat:'no-repeat', backgroundSize:'contain', backgroundPosition:'center'}}>
+                                                    
+                                                </div>
+                                            </div>
+                                            <p style={{fontSize:'30px', fontWeight:'bold', margin:'0px'}}>{student.studentForename + ' ' + student.studentSurname + ' ' + student.studentReg}</p>
+                                        </div>
+                                    </TableColumn>
+                                    <TableColumn width='auto'>
+                                        <p style={{fontSize:'30px', fontWeight:'bold', margin:'0px'}}>{student.points}</p>
+                                    </TableColumn>
+                                </TableRow>
+                            );
+                    })}
+                </div>
+                </div>
+            </div>   
         );
     }else{
         return(<></>);

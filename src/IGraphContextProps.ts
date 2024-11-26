@@ -1,5 +1,5 @@
 import { IHouseProps } from "./IHouseInterfaces";
-import { IStudentProps } from "./IStudentInterfaces";
+import { IStudentProps, IStudentStructure } from "./IStudentInterfaces";
 
 export interface IDataTypeProps {
     type:string;
@@ -27,7 +27,7 @@ export interface IHouseGraphSettings extends IBaseGraphSettingsProps{
   export interface IStudentGraphSettings extends IBaseGraphSettingsProps{
     type: 'student';
     dataType: IDataTypeProps[] | null;
-    data: IStudentProps[];
+    data: IStudentStructure;
   }
 
   export type IGraphSettingsProps = IHouseGraphSettings | IStudentGraphSettings;
@@ -42,12 +42,13 @@ export interface IHouseGraphSettings extends IBaseGraphSettingsProps{
 
     ){}
   }
+
   
   export class StudentGraphSettings implements IStudentGraphSettings {
     constructor(
         public type:'student',
         public dataType:IDataTypeProps[] | null,
-        public data: IStudentProps[],
+        public data: IStudentStructure,
         public interval: number,
         public orientation: string,
 
