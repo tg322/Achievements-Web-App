@@ -12,4 +12,4 @@ function TableRow(props:ITableColumnProps){
         </div>
     );
 }
-export default TableRow
+export default React.memo(TableRow)
