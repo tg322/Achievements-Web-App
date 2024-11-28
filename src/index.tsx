@@ -9,6 +9,7 @@ import { GraphProvider } from './Utils/GraphContextProvider';
 import Table from './pages/Table';
 import NewInitialise from './Utils/NewInitialise';
 import Home from './pages/Home';
+import SPCCSplashScreen from './pages/components/SPCCSplashScreen';
 
 const Content = () => {
 
@@ -16,9 +17,14 @@ const Content = () => {
     <BrowserRouter>
       <Routes>
       <Route path='/' element={<Home/>}/>
+      <Route path='/splashtest' element={<SPCCSplashScreen/>}/>
         <Route path='/vertical/'>
           <Route path="barchart" element={<NewInitialise>
             <BarChart/>
+          </NewInitialise>}/>
+          <Route path='table' element={
+            <NewInitialise>
+            <Table/>
           </NewInitialise>}/>
         </Route>
         <Route path='/horizontal/'>
@@ -27,9 +33,6 @@ const Content = () => {
           </NewInitialise>}/>
           <Route path='leaderboard' element={<NewInitialise>
             <Leaderboard/>
-          </NewInitialise>}/>
-          <Route path='table' element={<NewInitialise>
-            <Table/>
           </NewInitialise>}/>
         </Route>
       </Routes>

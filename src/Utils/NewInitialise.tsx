@@ -8,6 +8,7 @@ import { Helper } from '../Helpers';
 import BarChart from '../pages/BarChart';
 import Leaderboard from '../pages/Leaderboard';
 import Table from '../pages/Table';
+import SPCCSplashScreen from '../pages/components/SPCCSplashScreen';
 
 interface IInitialiseProps{
     children:React.ReactNode;
@@ -122,7 +123,7 @@ function NewInitialise(props:IInitialiseProps){
     if(graphSettingsCompleted){
         return(<>{children}</>);
     }else{
-        return(<></>);
+        return(<SPCCSplashScreen/>);
     }
     
 }

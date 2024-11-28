@@ -23,7 +23,6 @@ export class Helper {
         let housesArray:IHouseProps[] = [];
         let filteredHouses:IHouseProps[] = [];
         
-            // const testPoints = [10, 6116, 4001, 4000, 10000, 1000];
         for (const key of Object.keys(rawData)) {
             const singleItem = rawData[Number(key)];
             const houseSaint = houseSaints.filter((saint:IHouseSaintsProps) => saint.houseName === singleItem.house_description);

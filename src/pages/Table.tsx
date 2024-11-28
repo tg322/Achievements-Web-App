@@ -19,7 +19,7 @@ function Table(){
         
         return(
             <div style={{display:'flex', flexDirection:'column', backgroundColor:'#1d333d', backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover', width:'100%', boxSizing:'border-box', padding:'0px 30px 30px 30px', minHeight:'100vh', justifyContent:'space-between'}}>
-                <div style={{display:'flex', backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover', width:'100%', flexDirection:'column', alignItems:'center', height:'500px'}}>
+                <div style={{display:'flex', backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover', width:'100%', flexDirection:'column', alignItems:'center', height:'700px'}}>
                     <div className='bannerContainer' style={{position:'absolute', boxSizing:'border-box', padding:'0px 30px'}}>
                         {graphState.GraphSettings.data.topThree.map((student:IStudentProps,key) => {
                             return(
@@ -36,9 +36,9 @@ function Table(){
                 </div>
                 <div style={{display:'flex', flexDirection:'column', width:'100%', gap:'30px'}}>
                     <div style={{display:'flex', flexDirection:'column', width:'100%', alignItems:'center'}}>
-                        <img style={{width:'180px'}} src={crown}/>
-                        <h1 style={{color:'#e1b164', margin:'0px', fontFamily: 'Bebas Neue", sans-serif', fontWeight:'400', fontSize:'40px'}}>THIS WEEK'S</h1>
-                        <h1 style={{color:'#e1b164', fontFamily:'RoyalWedding', fontSize:'160px', fontWeight:'normal', margin:'0px', lineHeight:'0.9'}}>Roll of Honour</h1>
+                        <img style={{width:'200px'}} src={crown}/>
+                        <h1 style={{color:'#e1b164', margin:'0px', fontFamily: 'Bebas Neue", sans-serif', fontWeight:'400', fontSize:'60px'}}>THIS WEEK'S</h1>
+                        <h1 style={{color:'#e1b164', fontFamily:'RoyalWedding', fontSize:'180px', fontWeight:'normal', margin:'0px', lineHeight:'0.9'}}>Roll of Honour</h1>
                     </div>
                     
                 
@@ -53,17 +53,17 @@ function Table(){
                                         </TableColumn>
                                         <TableColumn width='80%'>
                                             <div style={{display:'flex', flexDirection:'row', gap:'25px', alignItems:'center'}}>
-                                                <div id='circle-photo' style={{display:'flex', width:'60px', height:'60px', backgroundColor:'white', borderRadius:'200px', alignItems:'center', justifyContent:'center', overflow:'hidden', border:'solid 4px #e1b164'}}>
+                                                <div id='circle-photo' style={{display:'flex', width:'60px', height:'60px', backgroundColor:'white', borderRadius:'200px', alignItems:'center', justifyContent:'center', overflow:'hidden', border:'solid 4px #e1b164', flexShrink:'0'}}>
                                                     <div id='photo' style={{display:'flex', width:'100px', height:'100px', backgroundImage:`url(${student.blob? student.blob : user})`, backgroundRepeat:'no-repeat', backgroundSize:'contain', backgroundPosition:'center'}}>
                                                         
                                                     </div>
                                                 </div>
-                                                <p style={{fontSize:'30px', fontWeight:'bold', margin:'0px'}}>{student.studentForename + ' ' + student.studentSurname + ' ' + student.studentReg}</p>
+                                                <p style={{fontSize:'40px', fontWeight:'bold', margin:'0px', textOverflow:'ellipsis', overflow:'hidden', textWrap:'nowrap'}}>{student.studentForename + ' ' + student.studentSurname + ' ' + student.studentReg}</p>
                                             </div>
                                         </TableColumn>
                                         <TableColumn width='auto'>
                                             <div style={{width:'60px', height:'60px', display:'flex', alignItems:'center', justifyContent:'center', backgroundColor:'#e1b164', borderRadius:'200px'}}>
-                                                <p style={{fontSize:'30px', fontWeight:'800', margin:'0px', color:'#1d333d'}}>{student.points}</p>
+                                                <p style={{fontSize:'35px', fontWeight:'800', margin:'0px', color:'#1d333d'}}>{student.points}</p>
                                             </div>
                                             
                                         </TableColumn>

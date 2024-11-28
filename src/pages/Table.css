@@ -29,25 +29,25 @@
     height: 100%;
     background-color: red;
     position: relative;
-    max-height: 450px;
+    max-height: 650px;
     justify-content: center;
     overflow: visible;
     overflow-x: clip;
-    top: -550px;
+    top: -750px;
 }
 .bannerShort{
-    max-height: 350px;
-    top: -440px;
+    max-height: 550px;
+    top: -650px;
 }
 
 .bannerMedium{
-    max-height: 400px;
-    top: -490px;
+    max-height: 600px;
+    top: -690px;
 }
 
 @keyframes bannerGrow {
     from {
-      top: -580px;
+      top: -780px;
     }
     to {
       top: 0px;
@@ -56,7 +56,7 @@
 
 @keyframes bannerLongGrow {
     from {
-      top: -580px;
+      top: -780px;
     }
     to {
       top: 0px;
@@ -65,7 +65,7 @@
 
 @keyframes bannerMediumGrow {
     from {
-      top: -580px;
+      top: -780px;
     }
     to {
       top: 0px;
@@ -74,7 +74,7 @@
 
 @keyframes bannerShortGrow {
     from {
-      top: -580px;
+      top: -780px;
     }
     to {
       top: 0px;
@@ -101,7 +101,7 @@
   flex-direction:row;
   width:100%;
   gap:30px;
-  height:500px;
+  height:700px;
 }
 
 /* .bannerContainerDrop{
@@ -114,7 +114,7 @@
     display: flex;
     background-color: green;
     position: absolute;
-    max-height: 500px;
+    max-height: 700px;
     justify-content: center;
     align-items: end;
     overflow: visible;
@@ -140,7 +140,7 @@
     display: flex;
     background-color: red;
     position: absolute;
-    max-height: 500px;
+    max-height: 700px;
     justify-content: center;
     align-items: end;
     overflow: visible;
