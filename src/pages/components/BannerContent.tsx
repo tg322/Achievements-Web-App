@@ -19,7 +19,7 @@ function BannerContent(props:IBannerTriangleProps){
             <div style={{display:'flex', flexDirection:'column', alignItems:'center', alignSelf:'end', gap:'30px', position:'relative', margin:'0px auto', paddingTop:'20px', boxSizing:'border-box'}}>
                 <div style={{display:'flex', position:'absolute', width:'170px', height:'170px', backgroundImage:`url(${wreath})`, backgroundRepeat:'no-repeat', backgroundSize:'contain', top:'40px'}}></div>
                 <div id='circle-photo' style={{display:'flex', width:'130px', height:'130px', backgroundColor:'white', borderRadius:'200px', alignItems:'center', justifyContent:'center', border:`solid 4px ${props.backgroundColor}`, overflow:'hidden'}}>
-                    <div id='photo' style={{display:'flex', width:'130px', height:'130px', backgroundRepeat:'no-repeat', backgroundSize:'contain', backgroundPosition:'center', backgroundImage:`url(${props.studentPhoto? props.studentPhoto : user})`}}>
+                    <div id='photo' style={{display:'flex', width:`${props.studentPhoto? '130px' : '80px'}`, height:`${props.studentPhoto? '130px' : '80px'}`, backgroundRepeat:'no-repeat', backgroundSize:'contain', backgroundPosition:'center', backgroundImage:`url(${props.studentPhoto? props.studentPhoto : user})`}}>
 
                     </div>
                 </div>

@@ -31,11 +31,10 @@ function Table(){
                             )
                             
                         })}
-                   
                     </div>
                 </div>
                 <div style={{display:'flex', flexDirection:'column', width:'100%', gap:'30px'}}>
-                    <div style={{display:'flex', flexDirection:'column', width:'100%', alignItems:'center'}}>
+                    <div style={{display:'flex', flexDirection:'column', width:'100%', alignItems:'center', gap:'40px'}}>
                         <img style={{width:'200px'}} src={crown}/>
                         <h1 style={{color:'#e1b164', margin:'0px', fontFamily: 'Bebas Neue", sans-serif', fontWeight:'400', fontSize:'60px'}}>THIS WEEK'S</h1>
                         <h1 style={{color:'#e1b164', fontFamily:'RoyalWedding', fontSize:'180px', fontWeight:'normal', margin:'0px', lineHeight:'0.9'}}>Roll of Honour</h1>
@@ -54,7 +53,7 @@ function Table(){
                                         <TableColumn width='80%'>
                                             <div style={{display:'flex', flexDirection:'row', gap:'25px', alignItems:'center'}}>
                                                 <div id='circle-photo' style={{display:'flex', width:'60px', height:'60px', backgroundColor:'white', borderRadius:'200px', alignItems:'center', justifyContent:'center', overflow:'hidden', border:'solid 4px #e1b164', flexShrink:'0'}}>
-                                                    <div id='photo' style={{display:'flex', width:'100px', height:'100px', backgroundImage:`url(${student.blob? student.blob : user})`, backgroundRepeat:'no-repeat', backgroundSize:'contain', backgroundPosition:'center'}}>
+                                                    <div id='photo' style={{display:'flex', width:`${student.blob? '100px' : '40px'}`, height:`${student.blob? '100px' : '40px'}`, backgroundImage:`url(${student.blob? student.blob : user})`, backgroundRepeat:'no-repeat', backgroundSize:'contain', backgroundPosition:'center'}}>
                                                         
                                                     </div>
                                                 </div>

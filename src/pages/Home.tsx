@@ -32,7 +32,7 @@ function Home(){
                     <div style={{display:'flex', flexDirection:'column', width:'100%'}}>
                         <h2>URL Parameters</h2>
                         <p>You can customize the data displayed in the bar charts by using URL parameters. These parameters allow you to filter the data based on house initials or student year groups.</p>
-                        <div style={{display:'flex', boxSizing:'border-box', padding:'15px', borderRadius:'8px', backgroundColor:'#ff000033', width:'fit-content', alignSelf:'center', margin:'20px 0px'}}>
+                        <div style={{display:'flex', boxSizing:'border-box', padding:'15px', borderRadius:'8px', backgroundColor:'#ff000033', width:'fit-content', alignSelf:'center', margin:'20px 0px', border:'solid 1px #dbb0b0'}}>
                             <p style={{margin:'0px'}}><b>Important:</b> You cannot use both <code>house_initial</code> and <code>student_year</code> parameters simultaneously. Only one parameter should be used at a time.</p>
                         </div>
                         <table className='table_component'>
@@ -108,7 +108,7 @@ function Home(){
                     <div style={{display:'flex', flexDirection:'column', width:'100%'}}>
                         <h2>URL Parameters</h2>
                         <p>You can customize the data displayed in the leaderboard by using URL parameters. These parameters allow you to filter the data based on house initials or student year groups.</p>
-                        <div style={{display:'flex', boxSizing:'border-box', padding:'15px', borderRadius:'8px', backgroundColor:'#ff000033', width:'fit-content', alignSelf:'center', margin:'20px 0px'}}>
+                        <div style={{display:'flex', boxSizing:'border-box', padding:'15px', borderRadius:'8px', backgroundColor:'#ff000033', width:'fit-content', alignSelf:'center', margin:'20px 0px', border:'solid 1px #dbb0b0'}}>
                             <p style={{margin:'0px'}}><b>Important:</b> You cannot use both <code>house_initial</code> and <code>student_year</code> parameters simultaneously. Only one parameter should be used at a time.</p>
                         </div>
                         <table className='table_component'>
@@ -183,9 +183,9 @@ function Home(){
                     <div style={{display:'flex', flexDirection:'column', width:'100%'}}>
                         <h2>URL Parameters</h2>
                         <p>You can customize the data displayed in the table by using URL parameters. These parameters allow you to filter the data based on house initials, student year groups and day range.</p>
-                        {/* <div style={{display:'flex', boxSizing:'border-box', padding:'15px', borderRadius:'8px', backgroundColor:'#ff000033', width:'fit-content', alignSelf:'center', margin:'20px 0px'}}>
-                            <p style={{margin:'0px'}}><b>Important:</b> You cannot use both <code>house_initial</code> and <code>student_year</code> parameters simultaneously. Only one parameter should be used at a time.</p>
-                        </div> */}
+                        <div style={{display:'flex', boxSizing:'border-box', padding:'15px', borderRadius:'8px', backgroundColor:'#ff000033', width:'fit-content', alignSelf:'center', margin:'20px 0px', border:'solid 1px #dbb0b0'}}>
+                            <p style={{margin:'0px'}}><b>Important:</b> You must use both <code>above_points</code> and <code>below_points</code> parameters together. Using only one will not return any data.</p>
+                        </div>
                         <table className='table_component'>
                             <caption>
                                 <h3>Available URL Parameters</h3>
@@ -221,7 +221,7 @@ function Home(){
                                 <tr>
                                     <td><code>above_points & below_points</code></td>
                                     <td>Accepts a number representing the number of points the students should be under, returns top achievers with points under the specified amount.</td>
-                                    <td><code>/table?below_points=25</code> (Displays top achievers with points below 25)</td>
+                                    <td><code>/table?above_points=12&below_points=25</code> (Displays top achievers with points above 12 but below 25)</td>
                                 </tr>
                                 <tr>
                                     <td><code>animation_timeout</code></td>

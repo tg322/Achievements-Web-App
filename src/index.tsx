@@ -19,7 +19,8 @@ const Content = () => {
       <Route path='/' element={<Home/>}/>
       <Route path='/splashtest' element={<SPCCSplashScreen/>}/>
         <Route path='/vertical/'>
-          <Route path="barchart" element={<NewInitialise>
+          <Route path="barchart" element={
+            <NewInitialise>
             <BarChart/>
           </NewInitialise>}/>
           <Route path='table' element={
@@ -28,12 +29,14 @@ const Content = () => {
           </NewInitialise>}/>
         </Route>
         <Route path='/horizontal/'>
-          <Route path="barchart" element={<NewInitialise>
-            <BarChart/>
-          </NewInitialise>}/>
-          <Route path='leaderboard' element={<NewInitialise>
-            <Leaderboard/>
-          </NewInitialise>}/>
+          <Route path="barchart" element={
+            <NewInitialise>
+              <BarChart/>
+            </NewInitialise>}/>
+          <Route path='leaderboard' element={
+            <NewInitialise>
+              <Leaderboard/>
+            </NewInitialise>}/>
         </Route>
       </Routes>
     </BrowserRouter>
