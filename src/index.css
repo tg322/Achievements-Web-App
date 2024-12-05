@@ -82,3 +82,10 @@ code {
   src: url('./assets/fonts/Courgette-Regular.ttf') format('truetype');
   
 }
+
+@font-face {
+  font-family: 'Ultra';
+  src: url('./assets/fonts/Ultra-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: serif;
+}

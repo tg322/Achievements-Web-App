@@ -9,6 +9,7 @@ import BarChart from '../pages/BarChart';
 import Leaderboard from '../pages/Leaderboard';
 import Table from '../pages/Table';
 import SPCCSplashScreen from '../pages/components/SPCCSplashScreen';
+import WantedPoster from '../pages/WantedPoster';
 
 interface IInitialiseProps{
     children:React.ReactNode;
@@ -64,7 +65,7 @@ function NewInitialise(props:IInitialiseProps){
     }
 
 
-    async function initialiseTable(){
+    async function initialiseTableAndWanted(){
         try {
             await testConnection();
             let orientation = await helpers.getOrientation(urlLocation.pathname);
@@ -111,11 +112,14 @@ function NewInitialise(props:IInitialiseProps){
             }else if(React.isValidElement(child) && child.type === Leaderboard){
                 initialiseBarchartAndLeaderboard();
             }else if(React.isValidElement(child) && child.type === Table){
-                initialiseTable();
-            }else{
-                return(()=>{
-                    throw new Error('Incorrect child type provided.');
-                })
+                initialiseTableAndWanted();
+            }else if(React.isValidElement(child) && child.type === WantedPoster){
+                initialiseTableAndWanted();
+            }
+            else{
+            return(()=>{
+                throw new Error('Incorrect child type provided.');
+            })
             }
         })
     },[children]);

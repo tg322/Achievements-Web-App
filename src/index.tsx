@@ -10,6 +10,7 @@ import Table from './pages/Table';
 import NewInitialise from './Utils/NewInitialise';
 import Home from './pages/Home';
 import SPCCSplashScreen from './pages/components/SPCCSplashScreen';
+import WantedPoster from './pages/WantedPoster';
 
 const Content = () => {
 
@@ -19,6 +20,10 @@ const Content = () => {
       <Route path='/' element={<Home/>}/>
       <Route path='/splashtest' element={<SPCCSplashScreen/>}/>
         <Route path='/vertical/'>
+          <Route path='wanted' element={
+            <NewInitialise>
+              <WantedPoster/>
+            </NewInitialise>}/>
           <Route path="barchart" element={
             <NewInitialise>
             <BarChart/>
@@ -27,6 +32,7 @@ const Content = () => {
             <NewInitialise>
             <Table/>
           </NewInitialise>}/>
+          
         </Route>
         <Route path='/horizontal/'>
           <Route path="barchart" element={
