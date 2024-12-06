@@ -8,6 +8,7 @@ import stNewman from './img/john_henry_newman.png';
 import stStein from './img/edith_stein.png';
 import { IStudentProps, Student, StudentStructure } from "./IStudentInterfaces";
 import { DataType, IDataTypeProps } from "./IGraphContextProps";
+import { rippedPages } from "./IWantedInterfaces";
 
 
 
@@ -117,6 +118,16 @@ export class Helper {
                     reject(buildResponse(false, 'No orientation found.'))
                 }
             });
+        }
+
+        async fetchBlobsAndSendURL(){
+            let imageBlobs:string[] = [];
+            for(const key of Object.keys(rippedPages)){
+                let singleImage = rippedPages[Number(key)];
+                let singleImageBlob = await this.fetchBlobs(singleImage)
+                imageBlobs.push(URL.createObjectURL(singleImageBlob))
+            }
+            return imageBlobs
         }
 
 

@@ -7,10 +7,10 @@ import BarChart from './pages/BarChart';
 import Leaderboard from './pages/Leaderboard';
 import { GraphProvider } from './Utils/GraphContextProvider';
 import Table from './pages/Table';
-import NewInitialise from './Utils/NewInitialise';
+import Initialise from './Utils/Initialise';
 import Home from './pages/Home';
 import SPCCSplashScreen from './pages/components/SPCCSplashScreen';
-import WantedPoster from './pages/WantedPoster';
+import WantedPoster from './pages/Wanted';
 
 const Content = () => {
 
@@ -21,28 +21,28 @@ const Content = () => {
       <Route path='/splashtest' element={<SPCCSplashScreen/>}/>
         <Route path='/vertical/'>
           <Route path='wanted' element={
-            <NewInitialise>
+            <Initialise>
               <WantedPoster/>
-            </NewInitialise>}/>
+            </Initialise>}/>
           <Route path="barchart" element={
-            <NewInitialise>
+            <Initialise>
             <BarChart/>
-          </NewInitialise>}/>
+          </Initialise>}/>
           <Route path='table' element={
-            <NewInitialise>
+            <Initialise>
             <Table/>
-          </NewInitialise>}/>
+          </Initialise>}/>
           
         </Route>
         <Route path='/horizontal/'>
           <Route path="barchart" element={
-            <NewInitialise>
+            <Initialise>
               <BarChart/>
-            </NewInitialise>}/>
+            </Initialise>}/>
           <Route path='leaderboard' element={
-            <NewInitialise>
+            <Initialise>
               <Leaderboard/>
-            </NewInitialise>}/>
+            </Initialise>}/>
         </Route>
       </Routes>
     </BrowserRouter>

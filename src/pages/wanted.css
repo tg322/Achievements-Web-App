@@ -1,27 +1,117 @@
-.page {
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(45deg, #ffffff, #f8f9fa);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    transform-origin: center;
-    transform-style: preserve-3d;
-    animation: flap 3s infinite ease-in-out;
+.wantedPosterWrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
 }
 
-@keyframes flap {
-    0% {
-        transform: perspective(600px) rotateX(0deg) rotateY(0deg);
+.wantedPoster{
+    display:flex;
+    width:400px;
+    height:440px;
+    background-position:center;
+    background-size:contain;
+    background-repeat:no-repeat;
+    color:#483226;
+}
+
+.wantedPosterContentContainer{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    padding:40px;
+    align-items:center;
+    gap:15px;
+    justify-content:center;
+}
+
+.wantedTitleContainer{
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    justify-content:center;
+    gap:10px;
+}
+
+.wantedTitleHandIcon{
+    width:30px;
+}
+
+.wantedTitle{
+    font-family:"Ultra";
+    margin:0px;
+    font-size:40px;
+    font-weight:200;
+}
+
+.wantedStudentImageContainer{
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    align-items:center;
+}
+
+.wantedStudentImage{
+    width:180px;
+    height:200px;
+    object-fit:cover;
+    object-position:0px -20px;
+    filter:sepia(1);
+    border:solid 3px #483226;
+}
+
+.wantedStudentHousePointsContainer{
+    display:flex;
+    background-color:#a07861;
+    min-width:40px;
+    height:30px;
+    justify-content:center;
+    align-items:center;
+    position:absolute;
+    top:calc(100% - 56px);
+    padding:16px 20px 10px;
+    border-radius:40px 40px 0px 0px;
+}
+
+.wantedStudentHousePoints{
+    font-size:35px;
+    color:wheat;
+    font-weight:bold;
+}
+
+.wantedStudentNameContainer{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.wantedHousePointsTitle{
+    font-size:14px;
+    line-height:0px;
+    text-align:center;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.wantedStudentName{
+    font-family:Ultra;
+    margin:0px;
+    font-size:25px;
+    margin-top:10px;
+    font-weight:200;
+    text-align:center;
+}
+
+@keyframes wantedPosterVisibility {
+    from {
+      opacity: 0.0;
     }
-    25% {
-        transform: perspective(600px) rotateX(10deg) rotateY(5deg);
+    to {
+      opacity: 1;
     }
-    50% {
-        transform: perspective(600px) rotateX(-5deg) rotateY(-10deg);
-    }
-    75% {
-        transform: perspective(600px) rotateX(5deg) rotateY(7deg);
-    }
-    100% {
-        transform: perspective(600px) rotateX(0deg) rotateY(0deg);
-    }
+}
+
+.wantedPosterWrapperShow{
+    animation:
+    wantedPosterVisibility 0.6s ease-in-out forwards;
 }

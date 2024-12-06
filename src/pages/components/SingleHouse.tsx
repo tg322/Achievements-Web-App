@@ -15,6 +15,7 @@ function SingleHouse(props:SingleHouseProps){
         const houses = graphState.GraphSettings.data;
         const singleHouse = graphState.GraphSettings.data[0];
         const orientation = graphState.GraphSettings.orientation;
+        const houseTotal = graphState.GraphSettings.data.reduce((acc, curr) => acc + curr.houseTotal, 0);
     return(
         <div style={{display:'flex', width:'100%', height:'100vh', boxSizing:'border-box', flexDirection:'column', backgroundImage:`url(${singleHouse.houseSaintPhoto})`, position:'relative', backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'center', justifyContent:'space-between', gap:'30px'}}>
         <div style={{display:'flex', position:'absolute', width:'100%', height:'100%', backgroundColor:`rgb(${singleHouse.darkerHouseColor.r}, ${singleHouse.darkerHouseColor.g},${singleHouse.darkerHouseColor.b})`, opacity:'0.2', zIndex:'1', top:'0', left:'0'}}></div>
@@ -34,8 +35,8 @@ function SingleHouse(props:SingleHouseProps){
             })}
         </div>
         <div style={{display:'flex', flexDirection:'column', backgroundColor:`rgba(${singleHouse.houseColor?.r}, ${singleHouse.houseColor?.g}, ${singleHouse.houseColor?.b}, 0.6)`, zIndex:'4', padding:'30px 0px 20px 0px'}}>
-            <h2 style={{fontSize:'40px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'4px' }}>GREAT WORK</h2>
-            <h1 style={{fontSize:'100px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'12px'}}>{singleHouse.houseDescription.toUpperCase()}</h1>
+            <h2 style={{fontSize:'40px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'4px' }}>HOUSE TOTAL</h2>
+            <h1 style={{fontSize:'100px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'12px'}}>{houseTotal}</h1>
         </div>
     </div>
     );
