@@ -34,7 +34,7 @@ function Table(){
                     </div>
                 </div>
                 <div style={{display:'flex', flexDirection:'column', width:'100%', gap:'30px'}}>
-                    <div style={{display:'flex', flexDirection:'column', width:'100%', alignItems:'center', gap:'40px'}}>
+                    <div className='roleOfHonourHeadingContainer'>
                         <img style={{width:'200px'}} src={crown}/>
                         <h1 style={{color:'#e1b164', margin:'0px', fontFamily: 'Bebas Neue", sans-serif', fontWeight:'400', fontSize:'60px'}}>THIS WEEK'S</h1>
                         <h1 style={{color:'#e1b164', fontFamily:'RoyalWedding', fontSize:'180px', fontWeight:'normal', margin:'0px', lineHeight:'0.9'}}>Roll of Honour</h1>
@@ -43,6 +43,7 @@ function Table(){
                 
                     <div id='table' style={{display:'flex', flexDirection:'column', width:'100%', gap:'10px'}}>
                         {graphState.GraphSettings.data.students.map((student:IStudentProps,key) => {
+                            if(key < 7){
                                 return(
                                     <TableRow key={key} keyPos={key}>
                                         <TableColumn width='10%'>
@@ -68,6 +69,7 @@ function Table(){
                                         </TableColumn>
                                     </TableRow>
                                 );
+                            } 
                         })}
                     </div>
                 </div>

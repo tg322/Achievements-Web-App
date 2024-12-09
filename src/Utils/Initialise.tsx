@@ -160,12 +160,7 @@ function Initialise(props:IInitialiseProps){
             initialiseWanted();
         }
     },[currentLocation])
-
-    if(graphSettingsCompleted){
-        return(<>{children}</>);
-    }else{
-        return(<SPCCSplashScreen/>);
-    }
     
+        return(<>{children}</>);
 }
 export default Initialise

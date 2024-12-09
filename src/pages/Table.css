@@ -228,3 +228,19 @@
     animation:
     tableRowVisibility 2s ease-in-out forwards;
 }
+
+.roleOfHonourHeadingContainer{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    align-items:center;
+    gap:40px;
+    opacity:0;
+    animation:
+    tableRowVisibility 1s ease-in-out forwards 1s;
+}
+
+.roleOfHonourHeadingContainerVisible{
+    animation:
+    tableRowVisibility 1s ease-in-out forwards;
+}
