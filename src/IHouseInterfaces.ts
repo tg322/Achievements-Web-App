@@ -5,12 +5,12 @@ import stMacKillop from './img/mary_mackillop.png';
 import stNewman from './img/john_henry_newman.png';
 import stStein from './img/edith_stein.png';
 
-import athensBG from './img/Athens.webp';
-import lystraBG from './img/Lystra.webp';
-import damasucsBG from './img/Damascus.webp';
-import corinthBG from './img/Corinth.webp';
-import vallettaBG from './img/Valletta.webp';
-import romeBG from './img/Rome.webp';
+import athensBG from './img/Athens.png';
+import lystraBG from './img/Lystra.png';
+import damasucsBG from './img/Damascus.png';
+import corinthBG from './img/Corinth.png';
+import vallettaBG from './img/Valletta.png';
+import romeBG from './img/Rome.png';
 
 
 export type Direction = 'vertical' | 'horizontal';

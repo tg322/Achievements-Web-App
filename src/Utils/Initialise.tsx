@@ -64,8 +64,6 @@ function Initialise(props:IInitialiseProps){
         const houseBackground = houseinitial 
             ? houseBG.find(house => house.houseName.toLowerCase().startsWith(String(houseinitial).toLowerCase().trim())) 
             : null;
-        
-        console.log(houseBackground)
 
         let houseBackgroundImageResponse = null;
         if (houseBackground) {
@@ -85,7 +83,6 @@ function Initialise(props:IInitialiseProps){
         setGraphSetingsCompleted(true);
     }
     
-
     async function initialiseLeaderboard(){
         let orientation = await helpers.getOrientation(urlLocation.pathname);
         if(!orientation.success){
