@@ -20,7 +20,6 @@ function HouseTotals(props:IHouseTotalsProps){
         initParticlesEngine(async (engine) => {
           await loadFull(engine);
         }).then(() => {
-          console.log('loadALL successful')
         }).catch((error) => {
           console.error("Error initializing particles engine: ", error);
         });

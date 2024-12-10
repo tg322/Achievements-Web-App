@@ -22,6 +22,13 @@ export interface IHouseGraphSettings extends IBaseGraphSettingsProps{
     type: 'house';
     dataType: IDataTypeProps | null;
     data: IHouseProps[];
+    bgImage?: string;
+  }
+
+export interface ILeaderboardGraphSettings extends IBaseGraphSettingsProps{
+    type: 'leaderboard';
+    dataType: IDataTypeProps | null;
+    data: IHouseProps[];
   }
   
   export interface IStudentGraphSettings extends IBaseGraphSettingsProps{
@@ -37,11 +44,23 @@ export interface IHouseGraphSettings extends IBaseGraphSettingsProps{
     rippedPosters: string[];
   }
 
-  export type IGraphSettingsProps = IHouseGraphSettings | IStudentGraphSettings | IWantedGraphSettings;
+  export type IGraphSettingsProps = IHouseGraphSettings | ILeaderboardGraphSettings | IStudentGraphSettings | IWantedGraphSettings;
 
   export class HouseGraphSettings implements IHouseGraphSettings {
     constructor(
         public type:'house',
+        public dataType:IDataTypeProps | null,
+        public data: IHouseProps[],
+        public interval: number,
+        public orientation: string,
+        public bgImage?: string,
+
+    ){}
+  }
+
+  export class LeaderboardGraphSettings implements ILeaderboardGraphSettings {
+    constructor(
+        public type:'leaderboard',
         public dataType:IDataTypeProps | null,
         public data: IHouseProps[],
         public interval: number,

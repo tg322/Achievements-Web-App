@@ -120,14 +120,20 @@ export class Helper {
             });
         }
 
-        async fetchBlobsAndSendURL(){
-            let imageBlobs:string[] = [];
-            for(const key of Object.keys(rippedPages)){
-                let singleImage = rippedPages[Number(key)];
-                let singleImageBlob = await this.fetchBlobs(singleImage)
-                imageBlobs.push(URL.createObjectURL(singleImageBlob))
-            }
-            return imageBlobs
+        async fetchBlobsAndSendURL(imageArray:string[]){
+                let imageBlobs:string[] = [];
+                for(const key of Object.keys(imageArray)){
+                    let singleImage = rippedPages[Number(key)];
+                    let singleImageBlob = await this.fetchBlobs(singleImage)
+                    imageBlobs.push(URL.createObjectURL(singleImageBlob))
+                }
+                return imageBlobs
+        }
+
+        async fetchBlobAndSendURL(image:string){
+                let singleImageBlob = await this.fetchBlobs(image)
+                let imageBlob = URL.createObjectURL(singleImageBlob);
+                return imageBlob
         }
 
 

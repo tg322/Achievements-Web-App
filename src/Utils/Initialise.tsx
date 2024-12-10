@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
-import {IGraphSettingsProps, DataType, IDataTypeProps, StudentGraphSettings, HouseGraphSettings, WantedGraphSettings} from '../IGraphContextProps';
+import {IGraphSettingsProps, DataType, IDataTypeProps, StudentGraphSettings, HouseGraphSettings, WantedGraphSettings, LeaderboardGraphSettings} from '../IGraphContextProps';
 import { useEffect, useState } from 'react';
 import { useGraphContext } from './GraphContextProvider';
 import { ApiEndpoints } from './ApiEndpoints';
@@ -10,6 +10,8 @@ import Leaderboard from '../pages/Leaderboard';
 import Table from '../pages/Table';
 import SPCCSplashScreen from '../pages/components/SPCCSplashScreen';
 import WantedPoster from '../pages/Wanted';
+import { rippedPages } from '../IWantedInterfaces';
+import { houseBG } from '../IHouseInterfaces';
 
 interface IInitialiseProps{
     children:React.ReactNode;
@@ -41,7 +43,50 @@ function Initialise(props:IInitialiseProps){
         }
     }   
 
-    async function initialiseBarchartAndLeaderboard(){
+    async function initialiseBarchart() {
+        let orientation = await helpers.getOrientation(urlLocation.pathname);
+        if (!orientation.success) {
+            throw new Error('Orientation failed.');
+        }
+        let year = Number(queryParameters.get('student_year'));
+        let houseinitial = queryParameters.get('house_initial');
+        let interval = Number(queryParameters.get('animation_timeout') ?? 30000);
+        let dataType = getHouseDataType(year, houseinitial);
+    
+        let builtHouses;
+        try {
+            const apiResponse = await apiEndpoints.fetchData(apiURL, '/houses', dataType);
+            builtHouses = await helpers.buildHouses(apiResponse.data);
+        } catch (error) {
+            throw new Error('Failed to fetch data and build houses.');
+        }
+    
+        const houseBackground = houseinitial 
+            ? houseBG.find(house => house.houseName.toLowerCase().startsWith(String(houseinitial).toLowerCase().trim())) 
+            : null;
+        
+        console.log(houseBackground)
+
+        let houseBackgroundImageResponse = null;
+        if (houseBackground) {
+            houseBackgroundImageResponse = await helpers.fetchBlobAndSendURL(houseBackground.bg);
+        }
+    
+        graphSettings = new HouseGraphSettings(
+            'house',
+            dataType,
+            builtHouses.data,
+            interval,
+            orientation.data,
+            houseBackgroundImageResponse? houseBackgroundImageResponse : undefined
+        );
+    
+        setGraphState();
+        setGraphSetingsCompleted(true);
+    }
+    
+
+    async function initialiseLeaderboard(){
         let orientation = await helpers.getOrientation(urlLocation.pathname);
         if(!orientation.success){
             throw new Error('Orientation failed.');
@@ -59,7 +104,7 @@ function Initialise(props:IInitialiseProps){
             throw new Error('Failed to fetch data and build houses.');
         }
 
-        graphSettings = new HouseGraphSettings('house', dataType, builtHouses.data, interval, orientation.data);
+        graphSettings = new LeaderboardGraphSettings('leaderboard', dataType, builtHouses.data, interval, orientation.data);
         setGraphState();
         setGraphSetingsCompleted(true);
     }
@@ -100,7 +145,7 @@ function Initialise(props:IInitialiseProps){
             
             const apiResponse = await apiEndpoints.fetchData(apiURL, '/topachievers', dataTypes.data);
             const builtStudents = await helpers.buildStudents(apiResponse.data);
-            let rippedPostersResponse = await helpers.fetchBlobsAndSendURL();
+            let rippedPostersResponse = await helpers.fetchBlobsAndSendURL(rippedPages);
 
             graphSettings = new WantedGraphSettings('wanted', dataTypes.data, builtStudents.data, rippedPostersResponse, interval, orientation.data);
 
@@ -151,16 +196,19 @@ function Initialise(props:IInitialiseProps){
     useEffect(()=>{
         
         if(currentLocation.includes('/barchart')){
-            initialiseBarchartAndLeaderboard();
+            initialiseBarchart();
         }else if(currentLocation.includes('/leaderboard')){
-            initialiseBarchartAndLeaderboard();
+            initialiseLeaderboard();
         }else if(currentLocation.includes('/table')){
             initialiseTable();
         }else if(currentLocation.includes('/wanted')){
             initialiseWanted();
         }
     },[currentLocation])
+
     
         return(<>{children}</>);
+    
+        
 }
 export default Initialise

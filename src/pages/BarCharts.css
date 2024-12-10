@@ -26,7 +26,7 @@
 #bar-wrapper-open {
   animation: 
   barGrow 2s ease-in-out forwards,
-  barShrink 2s ease-in-out forwards 10s;
+  barShrink 2s ease-in-out forwards 10.5s;
 }
 
 #bar-wrapper-closed{

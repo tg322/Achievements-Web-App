@@ -13,7 +13,7 @@ function LeaderboardContainer(){
     const{graphState} = useGraphContext();
 
     
-    if(graphState.GraphSettings.type === 'house'){
+    if(graphState.GraphSettings.type === 'leaderboard'){
         return(
             <div id='container' style={{display:'flex', flexDirection:'row', width:'100%', height:'100vh'}}>
                 <div id='imagesContainer' style={{display:'flex', flexDirection:'column', width:'60%', height:'100%', position:'relative'}}>

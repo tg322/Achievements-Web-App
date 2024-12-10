@@ -16,10 +16,10 @@ function Wanted(){
     const rotate = [354, 0,6, 12, 354, 354];
 
     useEffect(()=>{
-        if(graphState.GraphSettings.type === 'wanted'){
+        if(graphState.GraphSettings.type === 'wanted' && graphState.GraphSettings.rippedPosters){
             setPages(graphState.GraphSettings.rippedPosters);
         }
-    },[])
+    },[graphState])
 
     if(graphState.GraphSettings.type === 'wanted'){
         return(
@@ -43,7 +43,7 @@ function Wanted(){
                     </div>
                     {graphState.GraphSettings.data.students && graphState.GraphSettings.data.students.length > 0 &&
                     <div style={{display:'flex', flexDirection:'row', width:'100%', flexWrap:'wrap', gap:'60px', justifyContent:'center'}}>
-                        {pages && graphState.GraphSettings.data.students.map((student:IStudentProps,key) => {
+                        {pages && graphState.GraphSettings.rippedPosters && graphState.GraphSettings.data.students.map((student:IStudentProps,key) => {
                             if(key <= 5){
                                 
                                 return(

@@ -16,7 +16,7 @@ interface IBarProps{
 function Bar(props: IBarProps){
   const[animationID, setAnimationID] = useState<string>("bar-wrapper-closed");
 
-  const {graphState, graphDispatch} = useGraphContext();
+  const {graphState} = useGraphContext();
 
   let darkColor = `rgb(${props.house.darkerHouseColor?.r}, ${props.house.darkerHouseColor?.g}, ${props.house.darkerHouseColor?.b})`;
   let houseColor = `rgb(${props.house.houseColor?.r}, ${props.house.houseColor?.g}, ${props.house.houseColor?.b})`;

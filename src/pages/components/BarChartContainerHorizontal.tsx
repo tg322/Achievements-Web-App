@@ -10,7 +10,6 @@ function BarChartContainerHorizontal(){
 
     const helpers = new Helper();
     const {graphState, graphDispatch} = useGraphContext();
-    console.log(graphState);
     //needed
     function filterArray(){
         if(graphState.GraphSettings.type==='house'){
@@ -19,8 +18,6 @@ function BarChartContainerHorizontal(){
             let maxRounded = 0;
 
             maxRounded = Math.ceil(maxTotal / 10) * 10;
-
-            console.log(maxRounded);
 
             setMaxRounded(maxRounded);
         }
@@ -35,12 +32,10 @@ function BarChartContainerHorizontal(){
         if(graphState.GraphSettings.dataType){
         
             if(graphState.GraphSettings.dataType.type === 'house_initial'){
-                console.log(graphState.GraphSettings.dataType.value);
                 return(
                     <SingleHouse maxRounded={maxRounded}/>
                 );
             }else if(graphState.GraphSettings.dataType.type === 'student_year'){
-                console.log(graphState.GraphSettings.dataType.value);
                 return(
                     <HouseTotals maxRounded={maxRounded}/>
                 );

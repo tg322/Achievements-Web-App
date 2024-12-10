@@ -5,6 +5,14 @@ import stMacKillop from './img/mary_mackillop.png';
 import stNewman from './img/john_henry_newman.png';
 import stStein from './img/edith_stein.png';
 
+import athensBG from './img/Athens.webp';
+import lystraBG from './img/Lystra.webp';
+import damasucsBG from './img/Damascus.webp';
+import corinthBG from './img/Corinth.webp';
+import vallettaBG from './img/Valletta.webp';
+import romeBG from './img/Rome.webp';
+
+
 export type Direction = 'vertical' | 'horizontal';
 
 export interface IHouseProps{
@@ -30,6 +38,11 @@ export interface IHouseSaintsProps{
     saintImage:string;
 }
 
+export interface IHouseBGProps{
+    houseName:string;
+    bg:string;
+}
+
 export interface houseDetailsProps{
     houseImage:string;
     houseName:string;
@@ -46,13 +59,21 @@ export class HouseDetails implements houseDetailsProps{
     ) { }
 }
 
+export const houseBG:Array<IHouseBGProps> = 
+            [{houseName: 'Athens', bg:athensBG}, 
+            {houseName: 'Lystra', bg:lystraBG}, 
+            {houseName: 'Damascus', bg:damasucsBG}, 
+            {houseName: 'Corinth', bg:corinthBG},
+            {houseName: 'Valletta', bg:vallettaBG},
+            {houseName: 'Rome', bg:romeBG}];
+
 export const houseSaints:Array<IHouseSaintsProps> = 
             [{houseName: 'Athens', saintImage:stBosco}, 
             {houseName: 'Lystra', saintImage:stNewman}, 
             {houseName: 'Damascus', saintImage:stStein}, 
             {houseName: 'Corinth', saintImage:stMacKillop},
             {houseName: 'Valletta', saintImage:stTeresa},
-            {houseName: 'Rome', saintImage:stRomero}];
+            {houseName: 'Rome', saintImage:stRomero}];           
 
 export class House implements IHouseProps{
     constructor (
