@@ -37,7 +37,7 @@ function SingleHouse(props:SingleHouseProps){
         </div>
         <div style={{display:'flex', flexDirection:'column', backgroundColor:`rgba(${singleHouse.houseColor?.r}, ${singleHouse.houseColor?.g}, ${singleHouse.houseColor?.b}, 0.6)`, zIndex:'4', padding:'40px 0px 40px 0px'}}>
             <h2 style={{fontSize:'80px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', letterSpacing:'4px' }}>HOUSE TOTAL</h2>
-            <h1 style={{fontSize:'150px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', lineHeight:'0.8'}}>{houseTotal}</h1>
+            <h1 style={{fontSize:'150px', margin:'0px', textAlign:'center', fontFamily: '"Bebas Neue", sans-serif', fontWeight:'600', lineHeight:'0.8', letterSpacing:'4px'}}>{houseTotal.toLocaleString()}</h1>
         </div>
     </div>
     );

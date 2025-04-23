@@ -23,9 +23,13 @@ function Wanted(){
 
     if(graphState.GraphSettings.type === 'wanted'){
         return(
-            <div style={{width:'100%', minHeight:'100vh', height:'100vh', display:'flex', alignItems:'center', justifyContent:'center', backgroundImage:`url(${woodBG})`, backgroundRepeat:'no-repeat', backgroundSize:'cover', boxSizing:'border-box',position:'relative'}}>
-
-                <div style={{display:'flex', flexDirection:'column', width:'100%', height:'100%', gap:'60px'}}>
+            <div style={{width:'100%', minHeight:'100vh', height:'100vh', display:'flex', alignItems:'center', justifyContent:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundImage:`url(${woodBG})`, boxSizing:'border-box',position:'relative', overflow:'hidden',  perspective: '2000px',  transformStyle: 'preserve-3d'}}>
+                <div className="door-container">
+                    <div className="left-door"></div>
+                    <div className="right-door"></div>
+                </div>
+                
+                <div className='testScale' style={{display:'flex', flexDirection:'column', width:'100%', height:'100%', gap:'60px'}}>
                     <div style={{display:'flex', flexDirection:'row', width:'100%', position:'relative', justifyContent:'center', alignItems:'center', boxSizing:'border-box', paddingTop:'100px'}}>
 
                         <div style={{display:'flex', height:'170px', width:'170px', backgroundColor:'#43291c', flexShrink:'0', borderRadius:'200px', position:'absolute', left:'50px'}}>
