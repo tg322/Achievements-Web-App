@@ -203,8 +203,12 @@ function Initialise(props:IInitialiseProps){
         }
     },[currentLocation])
 
-    
+    if(graphSettingsCompleted){
         return(<>{children}</>);
+    }else{
+        return(<></>)
+    }
+        
     
         
 }

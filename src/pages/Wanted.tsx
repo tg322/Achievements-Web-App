@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './wanted.css'
-import woodBG from '../img/wooden_background.png'
+import woodBG from '../img/jail-cell-bg-new.jpg'
 import { useGraphContext } from '../Utils/GraphContextProvider';
 import { IStudentProps } from '../IStudentInterfaces';
 import WantedPoster from './components/WantedPoster';
@@ -10,6 +10,10 @@ import { Helper } from '../Helpers';
 function Wanted(){
 
     const[pages, setPages] = useState<string[]>([])
+    const[zoomAnimationClass, setZoomAnimationClass] = useState<string>('');
+    const[leftDoorAnimationClass, setLeftDoorAnimationClass] = useState<string>('');
+    const[rightDoorAnimationClass, setRightDoorAnimationClass] = useState<string>('');
+    const[wantedHeadingAnimationClass, setWantedHeadingAnimationClass] = useState<string>('');
 
     const{graphState} = useGraphContext();
 
@@ -21,47 +25,49 @@ function Wanted(){
         }
     },[graphState])
 
+    useEffect(() => {
+        console.log(graphState.GraphSettings.interval)
+            setTimeout(() => {
+                setZoomAnimationClass(' wanted-zoom-in');
+                setLeftDoorAnimationClass(' left-door-animate');
+                setRightDoorAnimationClass(' right-door-animate');
+                setWantedHeadingAnimationClass(' wanted-heading-show');
+                }, graphState.GraphSettings.interval);
+        }, []);
+
     if(graphState.GraphSettings.type === 'wanted'){
         return(
-            <div style={{width:'100%', minHeight:'100vh', height:'100vh', display:'flex', alignItems:'center', justifyContent:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundImage:`url(${woodBG})`, boxSizing:'border-box',position:'relative', overflow:'hidden',  perspective: '2000px',  transformStyle: 'preserve-3d'}}>
+            <div className="wanted-wrapper">
                 <div className="door-container">
-                    <div className="left-door"></div>
-                    <div className="right-door"></div>
+                    <div className={'left-door' + leftDoorAnimationClass}></div>
+                    <div className={'right-door' + rightDoorAnimationClass}></div>
                 </div>
-                
-                <div className='testScale' style={{display:'flex', flexDirection:'column', width:'100%', height:'100%', gap:'60px'}}>
-                    <div style={{display:'flex', flexDirection:'row', width:'100%', position:'relative', justifyContent:'center', alignItems:'center', boxSizing:'border-box', paddingTop:'100px'}}>
+                <div className={'wanted-background-container' + zoomAnimationClass} style={{backgroundImage:`url(${woodBG})`}}></div>
+                <div className="wanted-container">
+                    <div className="wanted-heading-wrapper">
 
-                        <div style={{display:'flex', height:'170px', width:'170px', backgroundColor:'#43291c', flexShrink:'0', borderRadius:'200px', position:'absolute', left:'50px'}}>
-
+                        <div className={"wanted-heading-container" + wantedHeadingAnimationClass}>
+                            <h1 className="wanted-today-heading">Today's</h1>
+                            <h1 className="wanted-bounty-heading">BRILLIANCE BOUNTY</h1>
                         </div>
 
-                        <div style={{display:'flex', width:'calc(100% - 200px)', backgroundColor:'#43291c', padding:'50px 10px', boxSizing:'border-box', zIndex:'10', justifyContent:'center', color:'wheat'}}>
-                            <h1 style={{margin:'0px', fontSize:'80px', textAlign:'center', fontWeight:'200', position:'absolute', top:'40px', fontFamily:'courgette', rotate:'346deg'}}>Today's</h1>
-                            <h1 style={{fontFamily:'Ultra', margin:'0px', fontSize:'60px', textAlign:'center', fontWeight:'200'}}>BRILLIANCE BOUNTY</h1>
-                        </div>
-
-                        <div style={{display:'flex', height:'170px', width:'170px', backgroundColor:'#43291c', flexShrink:'0', borderRadius:'200px', position:'absolute',left:'calc(100% - 220px)'}}>
-
-                        </div>
                     </div>
                     {graphState.GraphSettings.data.students && graphState.GraphSettings.data.students.length > 0 &&
-                    <div style={{display:'flex', flexDirection:'row', width:'100%', flexWrap:'wrap', gap:'60px', justifyContent:'center'}}>
+                    <div className='wanted-poster-container'>
                         {pages && graphState.GraphSettings.rippedPosters && graphState.GraphSettings.data.students.map((student:IStudentProps,key) => {
                             if(key <= 5){
                                 
                                 return(
                                     <WantedPoster keyPos={key} key={key} student={student} rotate={rotate[key]} page={pages[key]}/>
-                                    
                                 )
                             }
                         })}
                     </div>
                     }
                         {graphState.GraphSettings.data.students && graphState.GraphSettings.data.students.length === 0 && 
-                        <div style={{display:'flex', flexDirection:'column', width:'100%', flexWrap:'wrap', justifyContent:'center', height:'100%', overflow:'hidden', alignContent:'center'}}>
-                            <h1 style={{fontFamily:'Courgette', margin:'0px', fontSize:'100px', textAlign:'center', fontWeight:'200', height:'fit-content', color:'wheat'}}>Stay Tuned for</h1>
-                            <h1 style={{fontFamily:'Courgette', margin:'0px', fontSize:'100px', textAlign:'center', fontWeight:'200', height:'fit-content', color:'wheat'}}>Today's Most Wanted!</h1>
+                        <div className='wanted-no-data-container'>
+                            <h1 className='wanted-no-data-heading'>Stay Tuned for</h1>
+                            <h1 className='wanted-no-data-heading'>Today's Most Wanted!</h1>
                         </div>
                         }
                     
